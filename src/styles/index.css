@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+:root {
+  --bg-dark: #0B0F14;
+  --bg-deep: #06090D;
+  --neon-lime: #C6FF35;
+  --neon-glow: rgba(198, 255, 53, 0.45);
+  --lime-muted: #A5D625;
+  --panel-bg: rgba(14, 19, 24, 0.82);
+  --panel-border: #2B333A;
+  --panel-border-glow: rgba(198, 255, 53, 0.25);
+  --text-primary: #F4F6F8;
+  --text-secondary: #AAB4C0;
+  --text-muted: #7E8895;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'Space Mono', 'IBM Plex Mono', monospace;
+  --font-display: 'Space Grotesk', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+  background-color: #191d24;
+  color: #FFFFFF;
+  font-family: 'Inter Tight', sans-serif;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Hide scrollbar for clean UI matching reference */
+@media (pointer: fine) {
+  html {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  html::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+  }
+}
+
+/* Lenis smooth scrolling */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+/* Glassmorphism Panel Utility */
+.glass-panel {
+  background-color: rgba(24, 28, 35, 0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid #2B333A;
+  border-radius: 4px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.glass-panel:hover {
+  border-color: rgba(193, 244, 54, 0.3);
+}
+
+.glass-panel-glow {
+  border-color: rgba(193, 244, 54, 0.35);
+  box-shadow: 0 0 20px rgba(193, 244, 54, 0.15), 0 4px 24px rgba(0, 0, 0, 0.6);
+}
+
+/* Neon buttons and accents */
+.neon-badge {
+  background-color: #C6FF35;
+  color: #000000;
+  font-weight: 600;
+  box-shadow: 0 0 15px rgba(198, 255, 53, 0.4);
+}
+
+.neon-btn {
+  background-color: #C6FF35;
+  color: #000000;
+  font-weight: 600;
+  border-radius: 2px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 16px rgba(198, 255, 53, 0.35);
+}
+
+.neon-btn:hover {
+  background-color: #d5ff55;
+  box-shadow: 0 0 25px rgba(198, 255, 53, 0.6);
+  transform: translateY(-1px);
+}
+
+.neon-btn:active {
+  transform: translateY(0);
+}
+
+.neon-text-glow {
+  text-shadow: 0 0 12px rgba(198, 255, 53, 0.5);
+}
+
+/* Equalizer Bars Animation */
+@keyframes equalizer {
+  0% { height: 20%; }
+  50% { height: 100%; }
+  100% { height: 20%; }
+}
+
+.eq-bar-1 { animation: equalizer 0.8s ease-in-out infinite; }
+.eq-bar-2 { animation: equalizer 1.1s ease-in-out 0.2s infinite; }
+.eq-bar-3 { animation: equalizer 0.9s ease-in-out 0.4s infinite; }
+.eq-bar-4 { animation: equalizer 1.3s ease-in-out 0.1s infinite; }
+.eq-bar-5 { animation: equalizer 0.7s ease-in-out 0.3s infinite; }
+
+/* Pulse Glow Animation */
+@keyframes neonPulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scaleY(0.4);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+.scroll-line-pulse {
+  transform-origin: top;
+  animation: neonPulse 1.8s ease-in-out infinite;
+}
+
+/* Monospace telemetry styles */
+.font-tech {
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.font-mono-data {
+  font-family: 'JetBrains Mono', monospace;
+}
