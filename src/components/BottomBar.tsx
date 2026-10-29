@@ -41,7 +41,7 @@ export const BottomBar: React.FC<BottomBarProps> = ({ onLocationClick }) => {
         </div>
         <div className="hidden lg:flex items-center gap-1 text-[10px] text-[#C6FF35] font-mono px-2 py-0.5 rounded bg-[#C6FF35]/10 border border-[#C6FF35]/30">
           <Sparkles className="w-2.5 h-2.5" />
-          <span>48H Hackathon</span>
+          <span>24H Hackathon</span>
         </div>
       </div>
     </footer>

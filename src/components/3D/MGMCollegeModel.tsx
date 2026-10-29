@@ -166,80 +166,109 @@ export const MGMCollegeModel: React.FC = () => {
     const jaliTex = createMutedJaliTexture();
     const signTex = createGoldenSignageTexture();
 
-    // 1. Primary facade: Muted blue-gray/slate-gray matching city-plane.glb
-    const facadeMat = new THREE.MeshPhysicalMaterial({
-      color: '#657584',
-      roughness: 0.7,
-      metalness: 0.45,
-      reflectivity: 0.25,
-      clearcoat: 0.08
-    });
-
-    // 2. Structural pillars & framing lintels (subtle tonal contrast)
-    const pillarMat = new THREE.MeshPhysicalMaterial({
-      color: '#738392',
+    // 1. Primary facade: Refined blue-grey slate architectural surfaces
+    const facadeMat = new THREE.MeshStandardMaterial({
+      color: '#5c6e80',
       roughness: 0.65,
-      metalness: 0.4
+      metalness: 0.3
     });
 
-    // 3. Dark institutional window glazing (understated, non-glaring)
-    const windowMat = new THREE.MeshPhysicalMaterial({
-      color: '#1f2a33',
+    // 2. Structural pillars & framing lintels (subtle tonal architectural contrast)
+    const pillarMat = new THREE.MeshStandardMaterial({
+      color: '#6d7f92',
+      roughness: 0.6,
+      metalness: 0.3
+    });
+
+    // 3. Dark reflective glass for standard windows
+    const windowMat = new THREE.MeshStandardMaterial({
+      color: '#1a2430',
       roughness: 0.25,
-      metalness: 0.75,
-      reflectivity: 0.6,
-      clearcoat: 0.2
+      metalness: 0.75
     });
 
-    // 4. Perforated Jali lattice panel material
+    // 3b. Warm Amber/Gold Illuminated Interior Window Material (Glowing active rooms)
+    const warmGlowMat = new THREE.MeshStandardMaterial({
+      color: '#ffc745',
+      emissive: '#ff9d00',
+      emissiveIntensity: 2.8,
+      roughness: 0.2,
+      metalness: 0.1
+    });
+
+    // 3c. Neon-Lime Green Architectural Emissive Strips (Refined, no glare blowout)
+    const neonLimeMat = new THREE.MeshStandardMaterial({
+      color: '#a3e635',
+      emissive: '#84cc16',
+      emissiveIntensity: 1.35,
+      roughness: 0.2,
+      metalness: 0.1
+    });
+
+    // 3d. Subtle Cyan Accent Emissive Strips
+    const cyanGlowMat = new THREE.MeshStandardMaterial({
+      color: '#38bdf8',
+      emissive: '#0ea5e9',
+      emissiveIntensity: 1.25,
+      roughness: 0.2,
+      metalness: 0.1
+    });
+
+    // 4. Perforated Jali lattice panel material with warm golden glow
     const jaliMat = new THREE.MeshStandardMaterial({
       map: jaliTex,
-      roughness: 0.65,
-      metalness: 0.35
+      roughness: 0.45,
+      metalness: 0.4,
+      emissive: '#ffb326',
+      emissiveIntensity: 1.2
     });
 
-    // 5. Flat roof surface
+    // 5. Flat roof surface (architectural slate-charcoal)
     const roofMat = new THREE.MeshStandardMaterial({
-      color: '#4e5b66',
-      roughness: 0.85,
-      metalness: 0.2
+      color: '#435260',
+      roughness: 0.8,
+      metalness: 0.22
     });
 
-    // 6. Compact entrance reflection basin water (muted dark aqua-slate)
+    // 6. Compact entrance reflection basin water (dark reflective night water)
     const waterMat = new THREE.MeshStandardMaterial({
-      color: '#283f4f',
-      roughness: 0.2,
-      metalness: 0.5
+      color: '#162e42',
+      roughness: 0.15,
+      metalness: 0.6
     });
 
-    // 7. Base site pavement plinth
+    // 7. Base site pavement plinth (refined graphite paving)
     const plinthMat = new THREE.MeshStandardMaterial({
-      color: '#3d4852',
-      roughness: 0.85,
-      metalness: 0.15
+      color: '#374350',
+      roughness: 0.75,
+      metalness: 0.22
     });
 
-    // 8. Metallic Gold Signage Board Material
+    // 8. Metallic Gold Signage Board Material with warm illumination
     const goldenSignMat = new THREE.MeshStandardMaterial({
       map: signTex,
-      roughness: 0.35,
-      metalness: 0.65
+      roughness: 0.25,
+      metalness: 0.75,
+      emissive: '#ffbe3b',
+      emissiveIntensity: 1.5
     });
 
-    // 9. Metallic Gold Trim & Molding Material (Base: #D4AF37, Highlights: #F5DE91)
-    const goldTrimMat = new THREE.MeshPhysicalMaterial({
-      color: '#D4AF37',
-      roughness: 0.28,
-      metalness: 0.85,
-      reflectivity: 0.85,
-      clearcoat: 0.25,
-      clearcoatRoughness: 0.2
+    // 9. Metallic Gold Trim & Molding Material
+    const goldTrimMat = new THREE.MeshStandardMaterial({
+      color: '#E6C862',
+      roughness: 0.2,
+      metalness: 0.9,
+      emissive: '#d4af37',
+      emissiveIntensity: 0.9
     });
 
     return {
       facadeMat,
       pillarMat,
       windowMat,
+      warmGlowMat,
+      neonLimeMat,
+      cyanGlowMat,
       jaliMat,
       roofMat,
       waterMat,
@@ -301,41 +330,54 @@ export const MGMCollegeModel: React.FC = () => {
           </group>
         ))}
 
-        {/* Floor 1: 5 Bay Office/Classroom Windows with Sills */}
+        {/* Floor 1: 5 Bay Office/Classroom Windows with Warm Glowing Interiors & Sills */}
         {[-0.44, -0.22, 0, 0.22, 0.44].map((bx, i) => (
           <group key={i} position={[bx, 0.56, 0.38]}>
-            <mesh castShadow>
+            <mesh>
               <boxGeometry args={[0.17, 0.26, 0.02]} />
-              <primitive object={materials.windowMat} />
+              <primitive object={materials.warmGlowMat} />
             </mesh>
             {/* Window Sill / Sunshade Lintel */}
-            <mesh position={[0, -0.14, 0.015]} castShadow>
+            <mesh position={[0, -0.14, 0.015]}>
               <boxGeometry args={[0.19, 0.025, 0.05]} />
               <primitive object={materials.pillarMat} />
             </mesh>
-            <mesh position={[0, 0.14, 0.015]} castShadow>
+            <mesh position={[0, 0.14, 0.015]}>
               <boxGeometry args={[0.19, 0.025, 0.05]} />
               <primitive object={materials.pillarMat} />
             </mesh>
           </group>
         ))}
 
-        {/* Floor 2: 5 Bay Iconic Perforated Jali / Lattice Screens */}
+        {/* Floor 2: 5 Bay Iconic Perforated Jali / Lattice Screens with Warm Backlight */}
         {[-0.44, -0.22, 0, 0.22, 0.44].map((bx, i) => (
-          <mesh key={i} position={[bx, 0.88, 0.385]} castShadow>
-            <boxGeometry args={[0.18, 0.26, 0.03]} />
-            <primitive object={materials.jaliMat} />
-          </mesh>
+          <group key={i} position={[bx, 0.88, 0.385]}>
+            {/* Warm glowing background panel behind jali */}
+            <mesh position={[0, 0, -0.01]}>
+              <boxGeometry args={[0.17, 0.25, 0.01]} />
+              <primitive object={materials.warmGlowMat} />
+            </mesh>
+            <mesh>
+              <boxGeometry args={[0.18, 0.26, 0.03]} />
+              <primitive object={materials.jaliMat} />
+            </mesh>
+          </group>
         ))}
 
         {/* Horizontal Concrete Spandrels between floors */}
-        <mesh position={[0, 0.72, 0.385]} castShadow>
+        <mesh position={[0, 0.72, 0.385]}>
           <boxGeometry args={[1.24, 0.04, 0.06]} />
           <primitive object={materials.facadeMat} />
         </mesh>
-        <mesh position={[0, 1.025, 0.385]} castShadow>
+        <mesh position={[0, 1.025, 0.385]}>
           <boxGeometry args={[1.26, 0.04, 0.08]} />
           <primitive object={materials.facadeMat} />
+        </mesh>
+
+        {/* Central Portico Neon-Lime Architectural Strip */}
+        <mesh position={[0, 0.392, 0.535]}>
+          <boxGeometry args={[1.26, 0.014, 0.015]} />
+          <primitive object={materials.neonLimeMat} />
         </mesh>
 
         {/* ========================================================
@@ -345,43 +387,52 @@ export const MGMCollegeModel: React.FC = () => {
         ======================================================== */}
         <group position={[0, 1.072, 0.42]}>
           {/* Signboard Backing Plate with High-Res Gold Lettering */}
-          <mesh castShadow receiveShadow>
+          <mesh>
             <boxGeometry args={[1.20, 0.075, 0.016]} />
             <primitive object={materials.goldenSignMat} />
           </mesh>
 
           {/* Top Metallic Gold Architectural Molding */}
-          <mesh position={[0, 0.041, 0.005]} castShadow>
+          <mesh position={[0, 0.041, 0.005]}>
             <boxGeometry args={[1.22, 0.01, 0.022]} />
             <primitive object={materials.goldTrimMat} />
           </mesh>
 
           {/* Bottom Metallic Gold Architectural Molding */}
-          <mesh position={[0, -0.041, 0.005]} castShadow>
+          <mesh position={[0, -0.041, 0.005]}>
             <boxGeometry args={[1.22, 0.01, 0.022]} />
             <primitive object={materials.goldTrimMat} />
           </mesh>
 
           {/* Left & Right Metallic Gold End Cap Brackets */}
-          <mesh position={[-0.605, 0, 0.005]} castShadow>
+          <mesh position={[-0.605, 0, 0.005]}>
             <boxGeometry args={[0.015, 0.088, 0.022]} />
             <primitive object={materials.goldTrimMat} />
           </mesh>
-          <mesh position={[0.605, 0, 0.005]} castShadow>
+          <mesh position={[0.605, 0, 0.005]}>
             <boxGeometry args={[0.015, 0.088, 0.022]} />
             <primitive object={materials.goldTrimMat} />
           </mesh>
         </group>
 
+        {/* Consolidated Warm Entrance & Portico Illumination Light */}
+        <pointLight position={[0, 0.55, 0.38]} color="#ffb84d" intensity={3.8} distance={4.2} decay={2} />
+
         {/* Central Roof Parapet & Coping */}
-        <mesh position={[0, 1.12, -0.05]} castShadow>
+        <mesh position={[0, 1.12, -0.05]}>
           <boxGeometry args={[1.28, 0.04, 0.9]} />
           <primitive object={materials.pillarMat} />
         </mesh>
 
+        {/* Central Roof Neon-Lime Architectural Glow Strip */}
+        <mesh position={[0, 1.144, 0.40]}>
+          <boxGeometry args={[1.28, 0.014, 0.016]} />
+          <primitive object={materials.neonLimeMat} />
+        </mesh>
+
         {/* Central Rooftop Mast / Flagpole (Subtle institutional feature) */}
         <group position={[0, 1.14, 0.25]}>
-          <mesh position={[0, 0.12, 0]} castShadow>
+          <mesh position={[0, 0.12, 0]}>
             <cylinderGeometry args={[0.006, 0.008, 0.24, 6]} />
             <primitive object={materials.pillarMat} />
           </mesh>
@@ -393,27 +444,27 @@ export const MGMCollegeModel: React.FC = () => {
              Width: 0.82, Depth: 0.8, Height: 0.96
       ======================================================== */}
       <group position={[-1.04, 0, 0.1]}>
-        {/* Left Wing Solid Mass */}
+        {/* Left Wing Solid Mass — Casts authentic building shadow */}
         <mesh position={[0, 0.48, -0.05]} castShadow receiveShadow>
           <boxGeometry args={[0.82, 0.94, 0.8]} />
           <primitive object={materials.facadeMat} />
         </mesh>
 
-        {/* 3 Floors of Recessed Ribbon Windows */}
+        {/* 3 Floors of Recessed Ribbon Windows with subtle illuminated sections */}
         {[0.19, 0.52, 0.82].map((yLevel, rowIdx) => (
           <group key={rowIdx} position={[0, yLevel, 0.36]}>
-            <mesh castShadow>
+            <mesh>
               <boxGeometry args={[0.76, 0.17, 0.02]} />
-              <primitive object={materials.windowMat} />
+              <primitive object={rowIdx === 1 ? materials.warmGlowMat : materials.windowMat} />
             </mesh>
             {/* Concrete Sunshade Chhajja */}
-            <mesh position={[0, 0.095, 0.02]} castShadow>
+            <mesh position={[0, 0.095, 0.02]}>
               <boxGeometry args={[0.78, 0.02, 0.06]} />
               <primitive object={materials.pillarMat} />
             </mesh>
             {/* Vertical Mullion dividers */}
             {[-0.26, 0, 0.26].map((mx, mi) => (
-              <mesh key={mi} position={[mx, 0, 0.015]} castShadow>
+              <mesh key={mi} position={[mx, 0, 0.015]}>
                 <boxGeometry args={[0.03, 0.18, 0.04]} />
                 <primitive object={materials.pillarMat} />
               </mesh>
@@ -422,9 +473,15 @@ export const MGMCollegeModel: React.FC = () => {
         ))}
 
         {/* Left Wing Roof Parapet */}
-        <mesh position={[0, 0.96, -0.05]} castShadow>
+        <mesh position={[0, 0.96, -0.05]}>
           <boxGeometry args={[0.84, 0.05, 0.82]} />
           <primitive object={materials.pillarMat} />
+        </mesh>
+
+        {/* Left Wing Neon-Lime Architectural Glow Strip */}
+        <mesh position={[0, 0.988, 0.36]}>
+          <boxGeometry args={[0.84, 0.014, 0.016]} />
+          <primitive object={materials.neonLimeMat} />
         </mesh>
       </group>
 
@@ -433,27 +490,27 @@ export const MGMCollegeModel: React.FC = () => {
              Width: 0.82, Depth: 0.8, Height: 0.96
       ======================================================== */}
       <group position={[1.04, 0, 0.1]}>
-        {/* Right Wing Solid Mass */}
+        {/* Right Wing Solid Mass — Casts authentic building shadow */}
         <mesh position={[0, 0.48, -0.05]} castShadow receiveShadow>
           <boxGeometry args={[0.82, 0.94, 0.8]} />
           <primitive object={materials.facadeMat} />
         </mesh>
 
-        {/* 3 Floors of Recessed Ribbon Windows */}
+        {/* 3 Floors of Recessed Ribbon Windows with subtle illuminated sections */}
         {[0.19, 0.52, 0.82].map((yLevel, rowIdx) => (
           <group key={rowIdx} position={[0, yLevel, 0.36]}>
-            <mesh castShadow>
+            <mesh>
               <boxGeometry args={[0.76, 0.17, 0.02]} />
-              <primitive object={materials.windowMat} />
+              <primitive object={rowIdx === 2 ? materials.warmGlowMat : materials.windowMat} />
             </mesh>
             {/* Concrete Sunshade Chhajja */}
-            <mesh position={[0, 0.095, 0.02]} castShadow>
+            <mesh position={[0, 0.095, 0.02]}>
               <boxGeometry args={[0.78, 0.02, 0.06]} />
               <primitive object={materials.pillarMat} />
             </mesh>
             {/* Vertical Mullion dividers */}
             {[-0.26, 0, 0.26].map((mx, mi) => (
-              <mesh key={mi} position={[mx, 0, 0.015]} castShadow>
+              <mesh key={mi} position={[mx, 0, 0.015]}>
                 <boxGeometry args={[0.03, 0.18, 0.04]} />
                 <primitive object={materials.pillarMat} />
               </mesh>
@@ -462,9 +519,15 @@ export const MGMCollegeModel: React.FC = () => {
         ))}
 
         {/* Right Wing Roof Parapet */}
-        <mesh position={[0, 0.96, -0.05]} castShadow>
+        <mesh position={[0, 0.96, -0.05]}>
           <boxGeometry args={[0.84, 0.05, 0.82]} />
           <primitive object={materials.pillarMat} />
+        </mesh>
+
+        {/* Right Wing Neon-Lime Architectural Glow Strip */}
+        <mesh position={[0, 0.988, 0.36]}>
+          <boxGeometry args={[0.84, 0.014, 0.016]} />
+          <primitive object={materials.neonLimeMat} />
         </mesh>
       </group>
 
@@ -478,7 +541,7 @@ export const MGMCollegeModel: React.FC = () => {
           <boxGeometry args={[0.4, 0.72, 0.75]} />
           <primitive object={materials.facadeMat} />
         </mesh>
-        <mesh position={[0, 0.73, 0]} castShadow>
+        <mesh position={[0, 0.73, 0]}>
           <boxGeometry args={[0.42, 0.04, 0.77]} />
           <primitive object={materials.pillarMat} />
         </mesh>
@@ -490,7 +553,7 @@ export const MGMCollegeModel: React.FC = () => {
           <boxGeometry args={[0.4, 0.72, 0.75]} />
           <primitive object={materials.facadeMat} />
         </mesh>
-        <mesh position={[0, 0.73, 0]} castShadow>
+        <mesh position={[0, 0.73, 0]}>
           <boxGeometry args={[0.42, 0.04, 0.77]} />
           <primitive object={materials.pillarMat} />
         </mesh>
@@ -524,13 +587,32 @@ export const MGMCollegeModel: React.FC = () => {
         </mesh>
 
         {/* Low stone curbs around basins */}
-        <mesh position={[-0.48, 0.03, -0.28]} castShadow>
+        <mesh position={[-0.48, 0.03, -0.28]}>
           <boxGeometry args={[0.46, 0.025, 0.03]} />
           <primitive object={materials.plinthMat} />
         </mesh>
-        <mesh position={[0.48, 0.03, -0.28]} castShadow>
+        <mesh position={[0.48, 0.03, -0.28]}>
           <boxGeometry args={[0.46, 0.025, 0.03]} />
           <primitive object={materials.plinthMat} />
+        </mesh>
+      </group>
+
+      {/* Perimeter Sidewalk Neon-Lime Boundary Accent Strips */}
+      <group position={[0, 0.032, 0.05]}>
+        {/* Front Avenue Perimeter Neon-Lime Line */}
+        <mesh position={[0, 0, 1.20]}>
+          <boxGeometry args={[3.0, 0.008, 0.022]} />
+          <primitive object={materials.neonLimeMat} />
+        </mesh>
+        {/* Left Avenue Boundary Line */}
+        <mesh position={[-1.5, 0, 0]}>
+          <boxGeometry args={[0.022, 0.008, 2.4]} />
+          <primitive object={materials.neonLimeMat} />
+        </mesh>
+        {/* Right Avenue Boundary Line */}
+        <mesh position={[1.5, 0, 0]}>
+          <boxGeometry args={[0.022, 0.008, 2.4]} />
+          <primitive object={materials.neonLimeMat} />
         </mesh>
       </group>
     </group>

@@ -45,9 +45,9 @@ export const CountdownTimer: React.FC = () => {
 
   if (timeLeft.isComplete) {
     return (
-      <div className="flex items-center justify-center gap-2.5 py-2">
+      <div className="flex items-center justify-center gap-2.5 py-3 px-6 rounded-2xl bg-[#0B0F14]/85 border-[1.5px] border-[#C6FF35] shadow-[0_0_20px_rgba(198,255,53,0.25)] backdrop-blur-md">
         <span className="w-2.5 h-2.5 rounded-full bg-[#C6FF35] animate-ping" />
-        <span className="font-mono text-base sm:text-lg font-bold tracking-widest text-[#C6FF35]">
+        <span className="font-mono text-sm sm:text-base md:text-lg font-bold tracking-widest text-[#C6FF35]">
           EVENT IS LIVE NOW · 03–04 DEC 2026
         </span>
       </div>
@@ -62,23 +62,23 @@ export const CountdownTimer: React.FC = () => {
   ];
 
   return (
-    <div className="flex items-center justify-center gap-4 sm:gap-7 md:gap-10 lg:gap-12 mx-auto w-full max-w-2xl">
+    <div className="flex items-center justify-center gap-2 sm:gap-3.5 md:gap-4.5 mx-auto max-w-full">
       {units.map((unit, index) => (
         <React.Fragment key={unit.label}>
-          <div className="flex-1 flex flex-col items-center min-w-[60px] sm:min-w-[80px] md:min-w-[96px]">
-            <span className="font-mono text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-bold tracking-tight text-[#F4F6F8] leading-none drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)]">
+          {/* Individual Boxed Countdown Card */}
+          <div className="hero-countdown-box">
+            <span className="font-tech text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[#F4F6F8] leading-none drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
               {unit.value}
             </span>
-            <span className="mt-2.5 sm:mt-3 font-mono text-[10px] sm:text-xs md:text-[13px] tracking-[0.24em] text-[#AAB4C0] uppercase font-semibold drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+            <span className="mt-2 sm:mt-2.5 font-mono text-[9px] sm:text-[11px] md:text-xs tracking-[0.22em] text-[#AAB4C0] uppercase font-semibold select-none">
               {unit.label}
             </span>
           </div>
 
+          {/* Separator Colons Outside Cards */}
           {index < units.length - 1 && (
-            <div className="pb-5 sm:pb-6 select-none">
-              <span className="text-[#C6FF35] font-mono text-xl sm:text-2xl md:text-3xl font-bold drop-shadow-[0_0_10px_rgba(198,255,53,0.55)]">
-                :
-              </span>
+            <div className="hero-countdown-colon px-0.5 sm:px-1">
+              :
             </div>
           )}
         </React.Fragment>

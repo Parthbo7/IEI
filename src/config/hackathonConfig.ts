@@ -81,7 +81,7 @@ export const HACKATHON_CONFIG: HackathonConfig = {
   },
   eventDates: {
     display: "3 – 4 December 2026",
-    duration: "48 Hours",
+    duration: "24 Hours",
     startDate: "2026-12-03",
     endDate: "2026-12-04",
     status: "Registrations Open"
@@ -98,7 +98,7 @@ export const HACKATHON_CONFIG: HackathonConfig = {
     ]
   },
   prizes: {
-    poolDisplay: "₹1.5 Lakhs+",
+    poolDisplay: "COMING SOON",
     distributionStatus: "COMING SOON",
     breakdown: [
       { rank: "Champion (1st Place)", amount: "COMING SOON", perks: "Category award distribution: COMING SOON" },
@@ -175,7 +175,7 @@ export const HACKATHON_CONFIG: HackathonConfig = {
       status: "COMING SOON",
       items: [
         { time: "Morning", event: "Reporting & Desk Check-in", detail: "Detailed hourly schedule & activity timings: COMING SOON" },
-        { time: "Sprint Kickoff", event: "48-Hour Hackathon Begins", detail: "Detailed timeline & checkpoints: COMING SOON" },
+        { time: "Sprint Kickoff", event: "24-Hour Hackathon Begins", detail: "Detailed timeline & checkpoints: COMING SOON" },
         { time: "Checkpoint", event: "Mentorship & Progress Review", detail: "Detailed activity timings: COMING SOON" }
       ]
     },

@@ -7,10 +7,6 @@ import {
   Users,
   CheckCircle,
   ExternalLink,
-  Zap,
-  ShieldAlert,
-  Navigation as NavIcon,
-  Activity,
   HelpCircle,
   Mail,
   Lock,
@@ -21,9 +17,11 @@ import {
   MapPin,
   Clock,
   Sparkles,
-  Info
+  Info,
+  AlertCircle
 } from 'lucide-react';
 import { HACKATHON_CONFIG } from '../../config/hackathonConfig';
+import { ComingSoonView } from './ComingSoonView';
 
 export type ModalTabType =
   | 'overview'
@@ -72,20 +70,20 @@ export const HackathonModal: React.FC<HackathonModalProps> = ({
 
   const faqs = [
     {
-      q: 'Who is eligible to participate in the hackathon?',
-      a: 'The hackathon is open to all undergraduate and postgraduate students enrolled in recognized engineering, technology, and computer science programs across India.'
+      q: 'Who is eligible to participate in the Smart City Hackathon?',
+      a: 'Undergraduate and postgraduate engineering, technology, and polytechnic students from recognized institutions across India. Cross-disciplinary and multi-department teams are encouraged.'
     },
     {
-      q: 'What is the permitted team size?',
-      a: 'Teams must consist of 2 to 4 members. Interdisciplinary teams combining software, hardware/IoT, and urban design perspectives are strongly encouraged.'
+      q: 'What is the team size requirement?',
+      a: 'Teams must consist of 2 to 4 members, including 1 designated Team Leader who serves as the primary liaison for mentor checkpoints and submission reviews.'
     },
     {
-      q: 'What are the problem statements and theme?',
-      a: 'The overarching theme is Futuristic Cities and Smart Urban Innovation, covering 4 tracks: Smart Energy Grids, Autonomous Transit, Civic Intelligence & Waste, and Disaster Resilience. Detailed problem statements will be released soon.'
+      q: 'Is this an online or in-person hackathon?',
+      a: "Smart City Innovation 2026 is an intensive 24-hour in-person hackathon hosted at MGM's College of Engineering campus in Nanded, Maharashtra."
     },
     {
-      q: 'Is accommodation and food provided for outstation teams?',
-      a: 'Yes, full hospitality including campus accommodation, food, high-speed networking, and mentorship zones will be provided at MGM’s College of Engineering campus, Nanded during the 48-hour hackathon.'
+      q: 'What will be provided to participants during the 24 hours?',
+      a: 'All verified teams receive continuous high-speed Wi-Fi, power connectivity, dedicated lab workstations, meals, midnight refreshments, and access to industry/municipal mentors.'
     },
     {
       q: 'How will projects be evaluated?',
@@ -93,7 +91,7 @@ export const HackathonModal: React.FC<HackathonModalProps> = ({
     },
     {
       q: 'What is the registration process and fee?',
-      a: 'Registration is ₹600 per team. Online registration portals and guidelines will be opened shortly. Keep an eye on announcements.'
+      a: 'Registration is ₹600 per team. You can register your team immediately using the dedicated Register button on the website.'
     }
   ];
 
@@ -101,16 +99,16 @@ export const HackathonModal: React.FC<HackathonModalProps> = ({
     <div
       role="dialog"
       aria-modal="true"
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/80 backdrop-blur-md animate-fadeIn"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-in fade-in duration-200"
       onClick={e => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="relative w-full max-w-4xl max-h-[92vh] bg-[#0E1319] border border-[#2B333A] rounded-lg shadow-[0_0_60px_rgba(0,0,0,0.9)] flex flex-col overflow-hidden">
-        {/* Modal Header */}
-        <div className="flex items-center justify-between px-5 md:px-6 py-4 border-b border-[#2B333A] bg-[#0A0D12]">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded bg-[#C6FF35] flex items-center justify-center text-black shadow-[0_0_14px_rgba(198,255,53,0.4)]">
+      <div className="relative w-full max-w-5xl max-h-[90vh] bg-[#0A0E15] border border-white/[0.12] rounded-2xl shadow-[0_0_80px_rgba(0,0,0,0.95)] flex flex-col overflow-hidden text-zinc-300">
+        {/* Modal Top Header */}
+        <div className="flex items-center justify-between px-6 sm:px-8 py-5 border-b border-white/[0.08] bg-[#070A0F]/90">
+          <div className="flex items-center gap-3.5">
+            <div className="w-10 h-10 rounded-lg bg-[#C6FF35] flex items-center justify-center text-black shadow-[0_0_16px_rgba(198,255,53,0.35)] shrink-0">
               <svg width="20" height="22" viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   fillRule="evenodd"
@@ -121,31 +119,31 @@ export const HackathonModal: React.FC<HackathonModalProps> = ({
               </svg>
             </div>
             <div>
-              <h2 className="font-tech text-white text-base sm:text-lg font-bold tracking-wide">
-                {HACKATHON_CONFIG.eventName}
+              <h2 className="font-tech text-white text-base sm:text-lg font-bold tracking-wide leading-tight">
+                SMART CITY INNOVATION HACKATHON 2026
               </h2>
-              <p className="text-xs font-mono text-[#AAB4C0]">
-                {HACKATHON_CONFIG.organizer.institution} · {HACKATHON_CONFIG.organizer.chapter}
+              <p className="text-xs font-mono text-zinc-400 mt-0.5">
+                MGM's College of Engineering · IEI Student Chapter
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
             aria-label="Close dialog"
-            className="w-8 h-8 rounded bg-[#181D24] border border-[#2B333A] flex items-center justify-center text-[#AAB4C0] hover:text-white hover:border-[#C6FF35]/50 transition-colors cursor-pointer"
+            className="w-9 h-9 rounded-lg bg-white/[0.05] border border-white/[0.1] flex items-center justify-center text-zinc-400 hover:text-white hover:border-[#C6FF35]/50 transition-colors cursor-pointer"
           >
-            <X className="w-4 h-4" />
+            <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Modal Tabs Bar */}
-        <div className="flex items-center gap-1 sm:gap-2 px-4 sm:px-6 pt-2.5 border-b border-[#2B333A] bg-[#0C1016] overflow-x-auto text-xs font-mono scrollbar-none">
+        {/* Modal Navigation Tabs Bar */}
+        <div className="flex items-center gap-2 sm:gap-4 px-6 sm:px-8 border-b border-white/[0.08] bg-[#070A0F] overflow-x-auto text-xs font-mono scrollbar-none">
           <button
             onClick={() => setActiveTab('schedule')}
-            className={`pb-2.5 px-3 border-b-2 font-medium transition-colors whitespace-nowrap cursor-pointer ${
+            className={`py-3.5 px-2 border-b-2 font-medium tracking-wider transition-colors whitespace-nowrap cursor-pointer uppercase ${
               activeTab === 'schedule'
-                ? 'text-[#C6FF35] border-[#C6FF35]'
-                : 'text-[#AAB4C0] border-transparent hover:text-white'
+                ? 'text-[#C6FF35] border-[#C6FF35] font-bold'
+                : 'text-zinc-400 border-transparent hover:text-white'
             }`}
           >
             Schedule
@@ -153,21 +151,21 @@ export const HackathonModal: React.FC<HackathonModalProps> = ({
 
           <button
             onClick={() => setActiveTab('tracks')}
-            className={`pb-2.5 px-3 border-b-2 font-medium transition-colors whitespace-nowrap cursor-pointer ${
+            className={`py-3.5 px-2 border-b-2 font-medium tracking-wider transition-colors whitespace-nowrap cursor-pointer uppercase ${
               activeTab === 'tracks'
-                ? 'text-[#C6FF35] border-[#C6FF35]'
-                : 'text-[#AAB4C0] border-transparent hover:text-white'
+                ? 'text-[#C6FF35] border-[#C6FF35] font-bold'
+                : 'text-zinc-400 border-transparent hover:text-white'
             }`}
           >
-            Problem Statements & Tracks
+            Problem Statements
           </button>
 
           <button
             onClick={() => setActiveTab('sponsors')}
-            className={`pb-2.5 px-3 border-b-2 font-medium transition-colors whitespace-nowrap cursor-pointer ${
+            className={`py-3.5 px-2 border-b-2 font-medium tracking-wider transition-colors whitespace-nowrap cursor-pointer uppercase ${
               activeTab === 'sponsors'
-                ? 'text-[#C6FF35] border-[#C6FF35]'
-                : 'text-[#AAB4C0] border-transparent hover:text-white'
+                ? 'text-[#C6FF35] border-[#C6FF35] font-bold'
+                : 'text-zinc-400 border-transparent hover:text-white'
             }`}
           >
             Sponsors
@@ -175,10 +173,10 @@ export const HackathonModal: React.FC<HackathonModalProps> = ({
 
           <button
             onClick={() => setActiveTab('faq')}
-            className={`pb-2.5 px-3 border-b-2 font-medium transition-colors whitespace-nowrap cursor-pointer ${
+            className={`py-3.5 px-2 border-b-2 font-medium tracking-wider transition-colors whitespace-nowrap cursor-pointer uppercase ${
               activeTab === 'faq'
-                ? 'text-[#C6FF35] border-[#C6FF35]'
-                : 'text-[#AAB4C0] border-transparent hover:text-white'
+                ? 'text-[#C6FF35] border-[#C6FF35] font-bold'
+                : 'text-zinc-400 border-transparent hover:text-white'
             }`}
           >
             FAQ
@@ -186,10 +184,10 @@ export const HackathonModal: React.FC<HackathonModalProps> = ({
 
           <button
             onClick={() => setActiveTab('contact')}
-            className={`pb-2.5 px-3 border-b-2 font-medium transition-colors whitespace-nowrap cursor-pointer ${
+            className={`py-3.5 px-2 border-b-2 font-medium tracking-wider transition-colors whitespace-nowrap cursor-pointer uppercase ${
               activeTab === 'contact'
-                ? 'text-[#C6FF35] border-[#C6FF35]'
-                : 'text-[#AAB4C0] border-transparent hover:text-white'
+                ? 'text-[#C6FF35] border-[#C6FF35] font-bold'
+                : 'text-zinc-400 border-transparent hover:text-white'
             }`}
           >
             Contact
@@ -197,10 +195,10 @@ export const HackathonModal: React.FC<HackathonModalProps> = ({
 
           <button
             onClick={() => setActiveTab('login')}
-            className={`pb-2.5 px-3 border-b-2 font-medium transition-colors whitespace-nowrap cursor-pointer ${
+            className={`py-3.5 px-2 border-b-2 font-medium tracking-wider transition-colors whitespace-nowrap cursor-pointer uppercase ${
               activeTab === 'login'
-                ? 'text-[#C6FF35] border-[#C6FF35]'
-                : 'text-[#AAB4C0] border-transparent hover:text-white'
+                ? 'text-[#C6FF35] border-[#C6FF35] font-bold'
+                : 'text-zinc-400 border-transparent hover:text-white'
             }`}
           >
             Portal Login
@@ -208,21 +206,21 @@ export const HackathonModal: React.FC<HackathonModalProps> = ({
 
           <button
             onClick={() => setActiveTab('overview')}
-            className={`pb-2.5 px-3 border-b-2 font-medium transition-colors whitespace-nowrap cursor-pointer ${
+            className={`py-3.5 px-2 border-b-2 font-medium tracking-wider transition-colors whitespace-nowrap cursor-pointer uppercase ${
               activeTab === 'overview'
-                ? 'text-[#C6FF35] border-[#C6FF35]'
-                : 'text-[#AAB4C0] border-transparent hover:text-white'
+                ? 'text-[#C6FF35] border-[#C6FF35] font-bold'
+                : 'text-zinc-400 border-transparent hover:text-white'
             }`}
           >
-            Theme & Overview
+            Overview
           </button>
 
           <button
             onClick={() => setActiveTab('prizes')}
-            className={`pb-2.5 px-3 border-b-2 font-medium transition-colors whitespace-nowrap cursor-pointer ${
+            className={`py-3.5 px-2 border-b-2 font-medium tracking-wider transition-colors whitespace-nowrap cursor-pointer uppercase ${
               activeTab === 'prizes'
-                ? 'text-[#C6FF35] border-[#C6FF35]'
-                : 'text-[#AAB4C0] border-transparent hover:text-white'
+                ? 'text-[#C6FF35] border-[#C6FF35] font-bold'
+                : 'text-zinc-400 border-transparent hover:text-white'
             }`}
           >
             Prizes
@@ -230,234 +228,78 @@ export const HackathonModal: React.FC<HackathonModalProps> = ({
         </div>
 
         {/* Modal Content Body */}
-        <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6 text-sm text-[#AAB4C0]">
-          {/* TAB: SCHEDULE */}
+        <div
+          className={`flex-1 overflow-y-auto p-6 sm:p-8 space-y-8 text-sm ${
+            ['schedule', 'tracks', 'sponsors'].includes(activeTab)
+              ? 'flex flex-col items-center justify-center min-h-[460px]'
+              : ''
+          }`}
+        >
+          {/* =========================================================
+              TAB: SCHEDULE (COMING SOON)
+              ========================================================= */}
           {activeTab === 'schedule' && (
-            <div className="space-y-6">
-              <div className="glass-panel p-4 sm:p-5 border-[#C6FF35]/30">
-                <div className="flex items-center justify-between gap-2 flex-wrap">
-                  <div className="flex items-center gap-2 text-[#C6FF35] font-mono text-xs uppercase tracking-wider">
-                    <Calendar className="w-4 h-4" />
-                    <span>Official 48-Hour Event Timeline</span>
-                  </div>
-                  <span className="text-[10px] font-mono text-[#C6FF35] font-bold px-2 py-0.5 rounded bg-[#C6FF35]/10 border border-[#C6FF35]/30">
-                    DETAILED TIMINGS COMING SOON
-                  </span>
-                </div>
-                <h3 className="font-tech text-white text-xl font-bold mt-2">
-                  {HACKATHON_CONFIG.eventDates.display} · Non-Stop In-Person Sprint
-                </h3>
-                <p className="text-xs font-mono text-[#AAB4C0] mt-1">
-                  Hosted at {HACKATHON_CONFIG.organizer.institution}, {HACKATHON_CONFIG.organizer.location}
-                </p>
-              </div>
-
-              {HACKATHON_CONFIG.schedule.map((dayPlan, i) => (
-                <div key={i} className="space-y-3">
-                  <div className="flex items-center justify-between border-b border-[#2B333A] pb-2">
-                    <div className="flex items-center gap-2">
-                      <Clock className="w-4 h-4 text-[#C6FF35]" />
-                      <h4 className="font-tech text-white text-base font-bold">
-                        {dayPlan.day}
-                      </h4>
-                      <span className="text-xs font-mono text-[#7E8895]">
-                        — {dayPlan.title}
-                      </span>
-                    </div>
-                    <span className="text-[10px] font-mono text-[#C6FF35] font-bold px-2 py-0.5 rounded bg-[#C6FF35]/10 border border-[#C6FF35]/30">
-                      COMING SOON
-                    </span>
-                  </div>
-
-                  <div className="space-y-2.5">
-                    {dayPlan.items.map((item, j) => (
-                      <div
-                        key={j}
-                        className="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded bg-[#141920] border border-[#2B333A] text-xs font-mono gap-1.5"
-                      >
-                        <div className="flex items-center gap-3">
-                          <span className="text-[#C6FF35] font-semibold min-w-28">
-                            {item.time}
-                          </span>
-                          <span className="text-[#F4F6F8] font-bold">
-                            {item.event}
-                          </span>
-                        </div>
-                        <span className="text-[#7E8895] text-[11px] sm:text-right">
-                          {item.detail}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
+            <ComingSoonView
+              label="SMART CITY INNOVATION 2026"
+              heading="COMING SOON..."
+              description="Official schedule and event details will be announced soon. Stay tuned for updates."
+              icon={<Calendar className="w-10 h-10 stroke-[2.2]" />}
+            />
           )}
 
-          {/* TAB: TRACKS & PROBLEM STATEMENTS */}
+          {/* =========================================================
+              TAB: PROBLEM STATEMENTS & TRACKS (COMING SOON)
+              ========================================================= */}
           {activeTab === 'tracks' && (
-            <div className="space-y-4">
-              <div className="glass-panel p-4 sm:p-5 border-[#C6FF35]/30">
-                <div className="flex items-center justify-between gap-2 flex-wrap">
-                  <div className="flex items-center gap-2 text-[#C6FF35] font-mono text-xs uppercase tracking-wider">
-                    <Compass className="w-4 h-4" />
-                    <span>Municipal Problem Statements & Innovation Tracks</span>
-                  </div>
-                  <span className="text-[10px] font-mono text-[#C6FF35] font-bold px-2 py-0.5 rounded bg-[#C6FF35]/10 border border-[#C6FF35]/30">
-                    STATEMENTS ANNOUNCED SHORTLY
-                  </span>
-                </div>
-                <h3 className="font-tech text-white text-xl font-bold mt-2">
-                  4 Critical Urban Frontiers
-                </h3>
-                <p className="text-xs font-mono text-[#AAB4C0] mt-1 leading-relaxed">
-                  Developed in consultation with civic administrators to solve concrete problems facing Indian smart cities.
-                </p>
-              </div>
-
-              {HACKATHON_CONFIG.tracks.map(track => (
-                <div
-                  key={track.id}
-                  className="glass-panel p-5 border-[#2B333A] hover:border-[#C6FF35]/40 transition-colors space-y-3"
-                >
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded bg-[#161C24] border border-[#2B333A] flex items-center justify-center text-[#C6FF35]">
-                        {track.id.includes('energy') && <Zap className="w-5 h-5" />}
-                        {track.id.includes('mobility') && <NavIcon className="w-5 h-5" />}
-                        {track.id.includes('civic') && <Activity className="w-5 h-5" />}
-                        {track.id.includes('resilience') && <ShieldAlert className="w-5 h-5" />}
-                      </div>
-                      <div>
-                        <h4 className="font-tech text-white text-base font-bold">
-                          {track.title}
-                        </h4>
-                        <p className="text-xs font-mono text-[#7E8895]">
-                          {track.subtitle}
-                        </p>
-                      </div>
-                    </div>
-                    <span className="px-2.5 py-0.5 rounded bg-[#C6FF35]/15 text-[#C6FF35] font-mono text-xs border border-[#C6FF35]/30 shrink-0">
-                      {track.metric}
-                    </span>
-                  </div>
-
-                  <p className="text-xs font-mono leading-relaxed text-[#AAB4C0]">
-                    {track.description}
-                  </p>
-
-                  <div className="pt-2 border-t border-[#2B333A]/60 flex items-center justify-between text-xs font-mono">
-                    <span className="text-[11px] text-[#7E8895] uppercase">
-                      Problem Statements & Rubrics:
-                    </span>
-                    <span className="text-[10px] text-[#C6FF35] uppercase font-bold px-2 py-0.5 rounded bg-[#C6FF35]/10 border border-[#C6FF35]/30">
-                      COMING SOON
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <ComingSoonView
+              label="SMART CITY CHALLENGES"
+              heading="COMING SOON..."
+              description="Exciting real-world urban challenges will be revealed soon. Get ready to innovate."
+              icon={<Compass className="w-10 h-10 stroke-[2.2]" />}
+            />
           )}
 
-          {/* TAB: SPONSORS */}
+          {/* =========================================================
+              TAB: SPONSORS & PARTNERS (COMING SOON)
+              ========================================================= */}
           {activeTab === 'sponsors' && (
-            <div className="space-y-6">
-              <div className="glass-panel p-4 sm:p-5 border-[#C6FF35]/30">
-                <div className="flex items-center gap-2 text-[#C6FF35] font-mono text-xs uppercase tracking-wider">
-                  <Handshake className="w-4 h-4" />
-                  <span>Partners & Industry Sponsors</span>
-                </div>
-                <h3 className="font-tech text-white text-xl font-bold mt-2">
-                  Building Civic Innovation Ecosystems
-                </h3>
-                <p className="text-xs font-mono text-[#AAB4C0] mt-1 leading-relaxed">
-                  Smart City Innovation Hackathon 2026 brings together government municipal leadership, engineering academia, and cutting-edge technology enterprises.
-                </p>
-              </div>
-
-              {/* Confirmed Partners */}
-              <div className="space-y-3">
-                <h4 className="font-mono text-xs text-white uppercase tracking-wider">
-                  Confirmed Organizing & Knowledge Partners:
-                </h4>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                  <div className="p-4 rounded bg-[#141920] border border-[#2B333A] space-y-1.5">
-                    <span className="text-[10px] font-mono text-[#C6FF35] uppercase block font-semibold">ORGANIZING BODY</span>
-                    <h5 className="font-tech text-white font-bold text-sm">IEI Student Chapter</h5>
-                    <p className="text-xs font-mono text-[#7E8895]">Department of Information Technology</p>
-                    <span className="inline-block mt-1 px-2 py-0.5 rounded bg-white/[0.05] text-[#C6FF35] text-[10px] font-mono border border-[#C6FF35]/30">Confirmed</span>
-                  </div>
-
-                  <div className="p-4 rounded bg-[#141920] border border-[#2B333A] space-y-1.5">
-                    <span className="text-[10px] font-mono text-[#C6FF35] uppercase block font-semibold">HOST INSTITUTION</span>
-                    <h5 className="font-tech text-white font-bold text-sm">MGM's College of Engineering</h5>
-                    <p className="text-xs font-mono text-[#7E8895]">Nanded, Maharashtra</p>
-                    <span className="inline-block mt-1 px-2 py-0.5 rounded bg-white/[0.05] text-[#C6FF35] text-[10px] font-mono border border-[#C6FF35]/30">Confirmed</span>
-                  </div>
-
-                  <div className="p-4 rounded bg-[#141920] border border-[#2B333A] space-y-1.5">
-                    <span className="text-[10px] font-mono text-[#C6FF35] uppercase block font-semibold">MUNICIPAL PARTNER</span>
-                    <h5 className="font-tech text-white font-bold text-sm">NWCMC</h5>
-                    <p className="text-xs font-mono text-[#7E8895]">Nanded-Waghala Municipal Corporation</p>
-                    <span className="inline-block mt-1 px-2 py-0.5 rounded bg-white/[0.05] text-[#C6FF35] text-[10px] font-mono border border-[#C6FF35]/30">Confirmed</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Title & Industry Sponsors Coming Soon */}
-              <div className="p-5 rounded bg-[#141920] border border-[#2B333A] space-y-3">
-                <div className="flex items-center justify-between flex-wrap gap-2">
-                  <h4 className="font-tech text-white font-bold text-base">
-                    Title, Cloud & Industry Technology Sponsors
-                  </h4>
-                  <span className="text-xs font-mono text-[#C6FF35] font-bold px-2.5 py-1 rounded bg-[#C6FF35]/15 border border-[#C6FF35]/35">
-                    COMING SOON
-                  </span>
-                </div>
-                <p className="text-xs font-mono text-[#AAB4C0] leading-relaxed">
-                  Official corporate sponsors, developer tooling partners, cloud credit providers, and recruitment scouts will be revealed shortly.
-                </p>
-                <div className="pt-2 flex items-center gap-3 text-xs font-mono">
-                  <span className="text-[#7E8895]">Interested in partnering or sponsoring?</span>
-                  <a
-                    href="mailto:iei.it@mgmcen.ac.in"
-                    className="text-[#C6FF35] hover:underline flex items-center gap-1 font-semibold"
-                  >
-                    <span>iei.it@mgmcen.ac.in</span>
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
-                </div>
-              </div>
-            </div>
+            <ComingSoonView
+              label="OUR PARTNERS"
+              heading="COMING SOON..."
+              description="We're bringing together organizations and technology partners to power the next generation of smart-city innovation."
+              icon={<Handshake className="w-10 h-10 stroke-[2.2]" />}
+            />
           )}
 
-          {/* TAB: FAQ */}
+          {/* =========================================================
+              TAB: FAQ
+              ========================================================= */}
           {activeTab === 'faq' && (
-            <div className="space-y-4">
-              <div className="glass-panel p-4 sm:p-5 border-[#C6FF35]/30">
-                <div className="flex items-center gap-2 text-[#C6FF35] font-mono text-xs uppercase tracking-wider">
+            <div className="space-y-6 animate-in fade-in duration-200">
+              <div className="bg-[#0E1520] border border-white/[0.1] rounded-2xl p-6 sm:p-7">
+                <div className="flex items-center gap-2 text-[#C6FF35] font-mono text-xs uppercase tracking-widest font-bold mb-2">
                   <HelpCircle className="w-4 h-4" />
                   <span>Frequently Asked Questions</span>
                 </div>
-                <h3 className="font-tech text-white text-xl font-bold mt-2">
+                <h3 className="font-tech text-white text-2xl font-bold tracking-tight">
                   Everything You Need to Know
                 </h3>
-                <p className="text-xs font-mono text-[#AAB4C0] mt-1">
-                  Have questions about registration, rules, judging, or the 48-hour schedule? Find answers below.
+                <p className="text-xs sm:text-sm font-mono text-zinc-400 mt-1">
+                  Have questions about registration, eligibility, evaluation, or logistics? Find answers below.
                 </p>
               </div>
 
-              <div className="space-y-2.5">
-                {faqs.map((faq, index) => {
-                  const isOpen = expandedFaq === index;
+              <div className="space-y-3">
+                {faqs.map((faq, idx) => {
+                  const isOpen = expandedFaq === idx;
                   return (
                     <div
-                      key={index}
-                      className="rounded bg-[#141920] border border-[#2B333A] overflow-hidden transition-colors"
+                      key={idx}
+                      className="rounded-xl bg-[#070A0F] border border-white/[0.08] overflow-hidden transition-all"
                     >
                       <button
-                        onClick={() => setExpandedFaq(isOpen ? null : index)}
-                        className="w-full text-left p-4 flex items-center justify-between gap-3 text-xs sm:text-sm font-tech font-bold text-white hover:text-[#C6FF35] transition-colors cursor-pointer"
+                        onClick={() => setExpandedFaq(isOpen ? null : idx)}
+                        className="w-full text-left p-4 sm:p-5 flex items-center justify-between gap-3 text-sm font-tech font-bold text-white hover:text-[#C6FF35] transition-colors cursor-pointer"
                       >
                         <span>{faq.q}</span>
                         <ChevronDown
@@ -467,7 +309,7 @@ export const HackathonModal: React.FC<HackathonModalProps> = ({
                         />
                       </button>
                       {isOpen && (
-                        <div className="px-4 pb-4 pt-1 border-t border-[#2B333A]/50 text-xs font-mono text-[#AAB4C0] leading-relaxed">
+                        <div className="px-5 pb-5 pt-1 border-t border-white/[0.05] text-xs font-sans text-zinc-300 leading-relaxed">
                           {faq.a}
                         </div>
                       )}
@@ -478,225 +320,193 @@ export const HackathonModal: React.FC<HackathonModalProps> = ({
             </div>
           )}
 
-          {/* TAB: CONTACT */}
+          {/* =========================================================
+              TAB: CONTACT
+              ========================================================= */}
           {activeTab === 'contact' && (
-            <div className="space-y-6">
-              <div className="glass-panel p-4 sm:p-5 border-[#C6FF35]/30">
-                <div className="flex items-center gap-2 text-[#C6FF35] font-mono text-xs uppercase tracking-wider">
+            <div className="space-y-6 animate-in fade-in duration-200">
+              <div className="bg-[#0E1520] border border-white/[0.1] rounded-2xl p-6 sm:p-7">
+                <div className="flex items-center gap-2 text-[#C6FF35] font-mono text-xs uppercase tracking-widest font-bold mb-2">
                   <Mail className="w-4 h-4" />
-                  <span>Official Organizing & Institutional Contacts</span>
+                  <span>Official Organizing Secretariat</span>
                 </div>
-                <h3 className="font-tech text-white text-xl font-bold mt-2">
-                  Get in Touch with the Hackathon Secretariat
+                <h3 className="font-tech text-white text-2xl font-bold tracking-tight">
+                  Get in Touch
                 </h3>
-                <p className="text-xs font-mono text-[#AAB4C0] mt-1">
-                  For participation queries, travel guidance, or institutional partnerships.
+                <p className="text-xs sm:text-sm font-mono text-zinc-400 mt-1">
+                  For participation queries, travel assistance, or institutional partnerships.
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="p-4 rounded bg-[#141920] border border-[#2B333A] space-y-2">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div className="p-5 rounded-2xl bg-[#070A0F] border border-white/[0.08] space-y-2">
                   <div className="flex items-center gap-2 text-[#C6FF35] text-xs font-mono font-bold">
                     <Mail className="w-4 h-4" />
                     <span>EMAIL COMMUNICATIONS</span>
                   </div>
                   <a
                     href="mailto:iei.it@mgmcen.ac.in"
-                    className="font-tech text-base text-white hover:text-[#C6FF35] transition-colors block font-semibold"
+                    className="font-tech text-lg text-white hover:text-[#C6FF35] transition-colors block font-bold"
                   >
                     iei.it@mgmcen.ac.in
                   </a>
-                  <p className="text-[11px] font-mono text-[#7E8895]">
-                    Official inquiries, sponsorship proposals, and team verifications.
+                  <p className="text-xs font-mono text-zinc-400">
+                    Official inquiries, verification support, and sponsorship proposals.
                   </p>
                 </div>
 
-                <div className="p-4 rounded bg-[#141920] border border-[#2B333A] space-y-2">
+                <div className="p-5 rounded-2xl bg-[#070A0F] border border-white/[0.08] space-y-2">
                   <div className="flex items-center gap-2 text-[#C6FF35] text-xs font-mono font-bold">
                     <MapPin className="w-4 h-4" />
-                    <span>EVENT LOCATION & VENUE</span>
+                    <span>EVENT VENUE</span>
                   </div>
-                  <h5 className="font-tech text-base text-white font-semibold">
-                    {HACKATHON_CONFIG.organizer.institution}
+                  <h5 className="font-tech text-lg text-white font-bold">
+                    MGM's College of Engineering
                   </h5>
-                  <p className="text-[11px] font-mono text-[#7E8895]">
+                  <p className="text-xs font-mono text-zinc-400">
                     VIP Road, Nanded, Maharashtra - 431605, India
                   </p>
                 </div>
               </div>
 
-              <div className="p-4 rounded bg-[#141920] border border-[#2B333A] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono">
+              <div className="p-5 rounded-2xl bg-[#070A0F] border border-white/[0.08] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono">
                 <div>
-                  <span className="text-white font-bold block">Student & Faculty Helplines:</span>
-                  <span className="text-[#7E8895] text-[11px]">Direct mobile helplines and faculty coordinator contacts</span>
+                  <span className="text-white font-bold block">Helpline Numbers & Coordinators:</span>
+                  <span className="text-zinc-400 text-xs">Direct mobile helplines and student coordinators will be designated closer to the event.</span>
                 </div>
-                <span className="text-[#C6FF35] font-bold px-3 py-1 rounded bg-[#C6FF35]/10 border border-[#C6FF35]/30 self-start sm:self-auto">
-                  COMING SOON
+                <span className="text-[#C6FF35] font-semibold px-3 py-1 rounded bg-[#C6FF35]/10 border border-[#C6FF35]/25 self-start sm:self-auto shrink-0">
+                  Announcement Pending
                 </span>
               </div>
             </div>
           )}
 
-          {/* TAB: LOGIN (PLACEHOLDER INTEGRATION POINT) */}
+          {/* =========================================================
+              TAB: LOGIN (CLEAR STRUCTURED PARTICIPANT GATEWAY)
+              ========================================================= */}
           {activeTab === 'login' && (
-            <div className="space-y-6">
-              <div className="glass-panel p-4 sm:p-5 border-[#C6FF35]/30">
-                <div className="flex items-center gap-2 text-[#C6FF35] font-mono text-xs uppercase tracking-wider">
-                  <Lock className="w-4 h-4" />
-                  <span>Participant & Reviewer Portal</span>
+            <div className="space-y-6 animate-in fade-in duration-200 max-w-2xl mx-auto">
+              <div className="bg-[#0E1520] border border-white/[0.1] rounded-2xl p-6 text-center">
+                <div className="w-12 h-12 rounded-xl bg-[#C6FF35]/10 border border-[#C6FF35]/30 flex items-center justify-center text-[#C6FF35] mx-auto mb-3">
+                  <Lock className="w-6 h-6" />
                 </div>
-                <h3 className="font-tech text-white text-xl font-bold mt-2">
-                  Team & Jury Authentication Gateway
+                <h3 className="font-tech text-white text-xl font-bold tracking-tight">
+                  Team & Participant Portal Login
                 </h3>
-                <p className="text-xs font-mono text-[#AAB4C0] mt-1 leading-relaxed">
-                  Access your team workspace, project submission dashboard, code repository linking, and live mentor checkpoint reviews.
+                <p className="text-xs font-mono text-zinc-400 mt-1 max-w-md mx-auto">
+                  Access your registered team workspace, project submission dashboard, and mentor checkpoint feedback.
                 </p>
               </div>
 
-              {/* Status Integration Notice */}
-              <div className="p-4 rounded bg-[#141920] border border-[#C6FF35]/30 flex items-start gap-3 text-xs font-mono">
-                <Info className="w-5 h-5 text-[#C6FF35] shrink-0 mt-0.5" />
+              {/* Informational Status Card */}
+              <div className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.08] flex items-start gap-3 text-xs font-mono">
+                <AlertCircle className="w-5 h-5 text-[#C6FF35] shrink-0 mt-0.5" />
                 <div className="space-y-1">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-white font-bold">PORTAL AUTHENTICATION INTEGRATION</span>
-                    <span className="text-[10px] text-[#C6FF35] font-bold px-2 py-0.5 rounded bg-[#C6FF35]/15 border border-[#C6FF35]/35">
-                      COMING SOON
-                    </span>
-                  </div>
-                  <p className="text-[#AAB4C0] text-[11px] leading-relaxed">
-                    Credentials and team access tokens will be provisioned directly to registered team leads upon application verification. Authentication services will be activated prior to Day 1 sprint kickoff.
+                  <span className="text-white font-bold block">PORTAL CREDENTIALS PROVISIONING</span>
+                  <p className="text-zinc-400 text-xs leading-relaxed">
+                    Login credentials and team access tokens are generated upon application verification and activated prior to Day 1 sprint kickoff.
                   </p>
                 </div>
               </div>
 
-              {/* Visual Clean Form Placeholder */}
-              <div className="p-5 rounded bg-[#141920] border border-[#2B333A] space-y-4 opacity-75">
-                <div className="space-y-1.5">
-                  <label className="text-xs font-mono text-white block">
-                    Team ID or Registered Institutional Email
+              {/* Login Form Interface */}
+              <form onSubmit={e => e.preventDefault()} className="space-y-4">
+                <div className="space-y-1.5 text-left">
+                  <label className="text-xs font-mono text-zinc-300 block font-medium">
+                    Team ID or Registered Leader Email
                   </label>
                   <input
                     type="text"
-                    disabled
-                    placeholder="e.g. SCI-2026-TEAM-042 or teamlead@college.edu"
-                    className="w-full px-3.5 py-2.5 rounded bg-[#0A0D12] border border-[#2B333A] text-xs font-mono text-[#7E8895] cursor-not-allowed"
+                    placeholder="e.g. SCI-2026-TEAM-042 or leader@college.edu"
+                    className="w-full px-4 py-3 rounded-xl bg-[#070A0F] border border-white/[0.12] text-sm font-sans text-white placeholder-zinc-500 focus:border-[#C6FF35] focus:outline-none transition-colors"
                   />
                 </div>
 
-                <div className="space-y-1.5">
-                  <label className="text-xs font-mono text-white block">
-                    Access Token / Security PIN
+                <div className="space-y-1.5 text-left">
+                  <label className="text-xs font-mono text-zinc-300 block font-medium">
+                    Security Password
                   </label>
                   <input
                     type="password"
-                    disabled
-                    placeholder="••••••••••••"
-                    className="w-full px-3.5 py-2.5 rounded bg-[#0A0D12] border border-[#2B333A] text-xs font-mono text-[#7E8895] cursor-not-allowed"
+                    placeholder="Enter your team password"
+                    className="w-full px-4 py-3 rounded-xl bg-[#070A0F] border border-white/[0.12] text-sm font-sans text-white placeholder-zinc-500 focus:border-[#C6FF35] focus:outline-none transition-colors"
                   />
                 </div>
 
                 <button
-                  disabled
-                  className="w-full py-2.5 rounded bg-[#202730] border border-[#2B333A] text-xs font-mono text-[#7E8895] font-bold uppercase tracking-wider cursor-not-allowed"
+                  type="submit"
+                  className="w-full py-3.5 rounded-xl bg-[#C6FF35] text-black font-mono font-bold text-xs uppercase tracking-wider shadow-[0_0_20px_rgba(198,255,53,0.35)] hover:bg-[#d5ff55] transition-all cursor-pointer"
                 >
-                  Portal Login Disabled [Awaiting Sprint Inception]
+                  ENTER PARTICIPANT WORKSPACE
                 </button>
-              </div>
+              </form>
             </div>
           )}
 
-          {/* TAB: THEME & OVERVIEW */}
+          {/* =========================================================
+              TAB: OVERVIEW
+              ========================================================= */}
           {activeTab === 'overview' && (
-            <div className="space-y-6">
-              <div className="glass-panel p-5 space-y-3 border-[#C6FF35]/30">
-                <div className="flex items-center gap-2 text-[#C6FF35] font-mono text-xs uppercase tracking-wider">
+            <div className="space-y-6 animate-in fade-in duration-200">
+              <div className="bg-[#0E1520] border border-white/[0.1] rounded-2xl p-6 sm:p-7 space-y-3">
+                <div className="flex items-center gap-2 text-[#C6FF35] font-mono text-xs uppercase tracking-widest font-bold">
                   <Compass className="w-4 h-4" />
                   <span>Theme & Core Objective</span>
                 </div>
-                <h3 className="font-tech text-white text-xl font-bold">
+                <h3 className="font-tech text-white text-2xl font-bold tracking-tight">
                   {HACKATHON_CONFIG.theme.title}
                 </h3>
-                <p className="leading-relaxed text-xs font-mono text-[#AAB4C0]">
+                <p className="leading-relaxed text-xs sm:text-sm font-sans text-zinc-300">
                   {HACKATHON_CONFIG.theme.description}
                 </p>
               </div>
 
-              {/* Focus Pillars */}
-              <div>
-                <h4 className="font-mono text-xs text-white uppercase tracking-wider mb-3">
-                  Key Municipal Innovation Focus Areas:
-                </h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {HACKATHON_CONFIG.theme.focus.map((item, idx) => (
-                    <div
-                      key={idx}
-                      className="p-3 rounded bg-[#141920] border border-[#2B333A] flex items-start gap-2.5 text-xs font-mono"
-                    >
-                      <CheckCircle className="w-4 h-4 text-[#C6FF35] shrink-0 mt-0.5" />
-                      <span className="text-white">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Status Announcements Banner */}
-              <div className="p-3.5 rounded bg-[#141920] border border-[#2B333A] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs font-mono">
-                <span className="text-[#AAB4C0]">Judges, Mentors, Speakers & Guests Panel:</span>
-                <span className="text-[#C6FF35] font-bold">COMING SOON</span>
-              </div>
-            </div>
-          )}
-
-          {/* TAB: PRIZES */}
-          {activeTab === 'prizes' && (
-            <div className="space-y-6">
-              <div className="text-center py-5 select-none">
-                <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#C6FF35] font-semibold block mb-1">
-                  PRIZE POOL
-                </span>
-                <h3 className="font-tech text-4xl sm:text-5xl font-extrabold text-[#F4F6F8] tracking-tight leading-none drop-shadow-[0_0_25px_rgba(198,255,53,0.35)]">
-                  {HACKATHON_CONFIG.prizes.poolDisplay}
-                </h3>
-                <p className="font-mono text-xs text-[#AAB4C0] uppercase tracking-[0.2em] mt-2">
-                  CATEGORY DISTRIBUTION & AWARDS: <span className="text-[#C6FF35] font-bold">COMING SOON</span>
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-                {HACKATHON_CONFIG.prizes.breakdown.map((prize, idx) => (
-                  <div
-                    key={idx}
-                    className="p-4 rounded-lg border bg-[#141920] border-[#2B333A]"
-                  >
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="font-tech font-bold text-white text-xs">
-                        {prize.rank}
-                      </span>
-                    </div>
-                    <div className="text-[#C6FF35] font-mono text-xs font-bold py-1">
-                      {prize.amount}
-                    </div>
-                    <p className="text-[11px] font-mono text-[#AAB4C0] mt-1">
-                      {prize.perks}
-                    </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {HACKATHON_CONFIG.theme.focus.map((item, idx) => (
+                  <div key={idx} className="p-4 rounded-xl bg-[#070A0F] border border-white/[0.08] flex items-center gap-3">
+                    <CheckCircle className="w-4 h-4 text-[#C6FF35] shrink-0" />
+                    <span className="text-xs font-mono text-zinc-300">{item}</span>
                   </div>
                 ))}
               </div>
             </div>
           )}
-        </div>
 
-        {/* Modal Footer */}
-        <div className="px-5 md:px-6 py-3 border-t border-[#2B333A] bg-[#0A0D12] flex items-center justify-between text-xs font-mono text-[#7E8895]">
-          <span>{HACKATHON_CONFIG.organizer.institution}</span>
-          <button
-            onClick={onClose}
-            className="text-white hover:text-[#C6FF35] transition-colors cursor-pointer"
-          >
-            Close Window [Esc]
-          </button>
+          {/* =========================================================
+              TAB: PRIZES
+              ========================================================= */}
+          {activeTab === 'prizes' && (
+            <div className="space-y-6 animate-in fade-in duration-200">
+              <div className="relative py-14 px-6 sm:px-12 rounded-3xl bg-[#080D15]/90 border border-white/[0.1] text-center max-w-2xl mx-auto space-y-6 shadow-[0_12px_40px_rgba(0,0,0,0.6)] overflow-hidden">
+                <div className="absolute -top-16 left-1/2 -translate-x-1/2 w-72 h-72 bg-[#C6FF35]/[0.08] rounded-full blur-3xl pointer-events-none" />
+
+                <div className="w-16 h-16 rounded-2xl bg-[#0E1624] border border-[#C6FF35]/40 flex items-center justify-center text-[#C6FF35] mx-auto shadow-[0_0_28px_rgba(198,255,53,0.25)]">
+                  <Trophy className="w-8 h-8 animate-pulse" />
+                </div>
+
+                <div className="inline-block px-3.5 py-1 rounded-full bg-[#C6FF35]/15 border border-[#C6FF35]/30 text-[#C6FF35] font-mono text-xs font-bold tracking-widest uppercase">
+                  PRIZES & REWARDS
+                </div>
+
+                <div className="space-y-3">
+                  <h3 className="font-tech text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
+                    COMING SOON...
+                  </h3>
+                  <p className="text-zinc-300 text-sm sm:text-base font-sans max-w-md mx-auto leading-relaxed">
+                    Official prize pool, award categories, and incentive details will be announced soon. Stay tuned for updates.
+                  </p>
+                </div>
+
+                <div className="pt-6 border-t border-white/[0.08] text-xs font-mono text-zinc-400">
+                  <span>Cash prizes, citations, and incubation opportunities will be awarded to top-performing teams.</span>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
 };
+
+export default HackathonModal;
