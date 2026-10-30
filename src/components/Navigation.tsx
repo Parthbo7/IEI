@@ -14,18 +14,29 @@ interface NavigationProps {
   currentView: number;
   onSelectView: (viewIndex: number) => void;
   onOpenModal: (tab?: ModalTabType) => void;
+  activeRoute?: 'home' | 'contact' | string;
+  onNavigateHome?: () => void;
+  onNavigateToContact?: () => void;
+  onNavigateToLogin?: () => void;
 }
 
 export const Navigation: React.FC<NavigationProps> = ({
   currentView,
   onSelectView,
   onOpenModal,
+  activeRoute = 'home',
+  onNavigateHome,
+  onNavigateToContact,
+  onNavigateToLogin,
 }) => {
   const [sponsorsDropdownOpen, setSponsorsDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileSponsorsOpen, setMobileSponsorsOpen] = useState(false);
 
   const sponsorsRef = useRef<HTMLDivElement>(null);
+
+  const isHomeActive = activeRoute === 'home';
+  const isContactActive = activeRoute === 'contact';
 
   // Close Sponsors dropdown when clicking outside
   useEffect(() => {
@@ -53,14 +64,36 @@ export const Navigation: React.FC<NavigationProps> = ({
   }, []);
 
   const handleHomeClick = () => {
-    onSelectView(0);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (onNavigateHome) {
+      onNavigateHome();
+    } else {
+      onSelectView(0);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
     setMobileMenuOpen(false);
+  };
+
+  const handleContactClick = () => {
+    setSponsorsDropdownOpen(false);
+    setMobileMenuOpen(false);
+    if (onNavigateToContact) {
+      onNavigateToContact();
+    } else {
+      onOpenModal('contact');
+    }
   };
 
   const handleNavClick = (tab: ModalTabType) => {
     setSponsorsDropdownOpen(false);
     setMobileMenuOpen(false);
+    if (tab === 'contact') {
+      handleContactClick();
+      return;
+    }
+    if (tab === 'login' && onNavigateToLogin) {
+      onNavigateToLogin();
+      return;
+    }
     onOpenModal(tab);
   };
 
@@ -127,10 +160,16 @@ export const Navigation: React.FC<NavigationProps> = ({
             {/* HOME */}
             <button
               onClick={handleHomeClick}
-              className="relative text-[#C6FF35] hover:text-white transition-colors py-1.5 px-1 cursor-pointer uppercase font-bold focus:outline-none"
+              className={`relative transition-colors py-1.5 px-1 cursor-pointer uppercase focus:outline-none ${
+                isHomeActive
+                  ? 'text-[#C6FF35] hover:text-white font-bold'
+                  : 'hover:text-[#C6FF35]'
+              }`}
             >
               <span>HOME</span>
-              <span className="absolute -bottom-1.5 left-0 right-0 h-[2.5px] bg-[#C6FF35] rounded-full shadow-[0_0_8px_#C6FF35]" />
+              {isHomeActive && (
+                <span className="absolute -bottom-1.5 left-0 right-0 h-[2.5px] bg-[#C6FF35] rounded-full shadow-[0_0_8px_#C6FF35]" />
+              )}
             </button>
 
             {/* SCHEDULE */}
@@ -214,10 +253,17 @@ export const Navigation: React.FC<NavigationProps> = ({
 
             {/* CONTACT */}
             <button
-              onClick={() => handleNavClick('contact')}
-              className="hover:text-[#C6FF35] transition-colors py-1.5 px-1 cursor-pointer uppercase focus:outline-none focus-visible:text-[#C6FF35]"
+              onClick={handleContactClick}
+              className={`relative transition-colors py-1.5 px-1 cursor-pointer uppercase focus:outline-none ${
+                isContactActive
+                  ? 'text-[#C6FF35] hover:text-white font-bold'
+                  : 'hover:text-[#C6FF35]'
+              }`}
             >
-              CONTACT
+              <span>CONTACT</span>
+              {isContactActive && (
+                <span className="absolute -bottom-1.5 left-0 right-0 h-[2.5px] bg-[#C6FF35] rounded-full shadow-[0_0_8px_#C6FF35]" />
+              )}
             </button>
           </nav>
 
@@ -293,7 +339,9 @@ export const Navigation: React.FC<NavigationProps> = ({
         <div className="lg:hidden fixed top-[74px] sm:top-[82px] left-3 right-3 sm:left-6 sm:right-6 max-w-[1440px] mx-auto bg-[#070B14]/98 border border-white/[0.14] rounded-2xl backdrop-blur-2xl p-5 shadow-[0_20px_50px_rgba(0,0,0,0.95)] z-50 animate-in fade-in slide-in-from-top-2 duration-200 flex flex-col space-y-3">
           <button
             onClick={handleHomeClick}
-            className="text-left font-mono text-sm font-semibold text-zinc-200 hover:text-[#C6FF35] py-2 border-b border-white/[0.06] transition-colors flex items-center justify-between cursor-pointer"
+            className={`text-left font-mono text-sm font-semibold py-2 border-b border-white/[0.06] transition-colors flex items-center justify-between cursor-pointer ${
+              isHomeActive ? 'text-[#C6FF35]' : 'text-zinc-200 hover:text-[#C6FF35]'
+            }`}
           >
             <span>HOME</span>
             <span className="text-[10px] text-zinc-500 font-mono">01</span>
@@ -359,8 +407,10 @@ export const Navigation: React.FC<NavigationProps> = ({
           </button>
 
           <button
-            onClick={() => handleNavClick('contact')}
-            className="text-left font-mono text-sm font-semibold text-zinc-200 hover:text-[#C6FF35] py-2 border-b border-white/[0.06] transition-colors flex items-center justify-between cursor-pointer"
+            onClick={handleContactClick}
+            className={`text-left font-mono text-sm font-semibold py-2 border-b border-white/[0.06] transition-colors flex items-center justify-between cursor-pointer ${
+              isContactActive ? 'text-[#C6FF35]' : 'text-zinc-200 hover:text-[#C6FF35]'
+            }`}
           >
             <span>CONTACT</span>
             <span className="text-[10px] text-zinc-500 font-mono">05</span>

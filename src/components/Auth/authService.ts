@@ -147,6 +147,33 @@ export async function authenticateTeam(
         if (leaderProfile?.email) {
           resolvedEmail = leaderProfile.email;
         }
+      } else {
+        // Could be an admin user ID or profile username
+        const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(cleanIdentifier);
+        if (isUUID) {
+          const { data: prof } = await supabase
+            .from('profiles')
+            .select('email')
+            .eq('id', cleanIdentifier)
+            .maybeSingle();
+          if (prof?.email) resolvedEmail = prof.email;
+        } else {
+          // Check if profile full_name matches
+          const { data: prof } = await supabase
+            .from('profiles')
+            .select('email')
+            .ilike('full_name', cleanIdentifier)
+            .maybeSingle();
+          if (prof?.email) {
+            resolvedEmail = prof.email;
+          } else if (
+            cleanIdentifier.toLowerCase() === 'admin' ||
+            cleanIdentifier.toLowerCase() === 'admin_001' ||
+            cleanIdentifier.toLowerCase() === 'admin-sci26'
+          ) {
+            resolvedEmail = 'admin@sci2026.org';
+          }
+        }
       }
     }
 
@@ -222,6 +249,39 @@ export async function authenticateTeam(
         console.warn('Database team auth notice:', dbAuthErr);
       }
 
+      // Check built-in admin demo credentials for offline development fallback
+      const isAdminDemo =
+        (cleanIdentifier.toLowerCase() === 'admin@sci2026.org' ||
+          cleanIdentifier.toLowerCase() === 'admin' ||
+          cleanIdentifier.toLowerCase() === 'admin_001' ||
+          cleanIdentifier.toLowerCase() === 'admin-sci26') &&
+        (cleanPassword === 'Smart2026!' || cleanPassword === 'admin123');
+
+      if (isAdminDemo) {
+        const adminSession: TeamSession = {
+          teamName: 'Hackathon Admin Control Center',
+          referenceId: 'SCI26-ADMIN-MASTER',
+          leaderName: 'Hackathon Administrator',
+          leaderEmail: 'admin@sci2026.org',
+          verificationStatus: 'VERIFIED',
+          token: `sci_jwt_admin_${Date.now()}`,
+          loginTimestamp: now,
+          isAdmin: true,
+          userId: 'admin-master-uid',
+        };
+        if (typeof window !== 'undefined') {
+          window.sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(adminSession));
+          window.localStorage.removeItem(LOGIN_ATTEMPTS_KEY);
+        }
+        setRememberedTeamName(cleanIdentifier, rememberMe);
+        return {
+          success: true,
+          message: 'Signed in as Administrator. Redirecting...',
+          session: adminSession,
+          isAdmin: true,
+        };
+      }
+
       // Check built-in demo credentials for offline development fallback
       const isDemo =
         (cleanIdentifier.toLowerCase() === 'urban innovators' ||
@@ -280,10 +340,10 @@ export async function authenticateTeam(
     // 4. Check if user is an Administrator
     const isAdmin = await checkIsAdmin(userId);
 
-    const teamName = userTeam?.team_name || profile?.full_name || 'Innovator Team';
-    const referenceId = userTeam
-      ? `SCI26-TEAM-${userTeam.id.slice(0, 4).toUpperCase()}`
-      : 'SCI26-TEAM-8492';
+    const teamName = userTeam?.team_name || (isAdmin ? 'Hackathon Admin Control Center' : (profile?.full_name || 'Innovator Team'));
+    const referenceId = isAdmin
+      ? 'SCI26-ADMIN-MASTER'
+      : (userTeam ? `SCI26-TEAM-${userTeam.id.slice(0, 4).toUpperCase()}` : 'SCI26-TEAM-8492');
 
     const rawStatus = (userTeam?.registration_status || 'pending').toLowerCase();
     const verificationStatus =

@@ -7,6 +7,7 @@ import { OverlayManager } from './components/overlays/OverlayManager';
 import { HackathonModal, ModalTabType } from './components/Modals/HackathonModal';
 import { RegistrationPage } from './components/TeamRegistration/RegistrationPage';
 import { LoginPage } from './components/Auth/LoginPage';
+import { ContactPage } from './components/Contact/ContactPage';
 import { ParticipantDashboard } from './components/Dashboard/ParticipantDashboard';
 import { AdminDashboard } from './components/Admin/AdminDashboard';
 import { getActiveSession, TeamSession } from './components/Auth/authService';
@@ -18,7 +19,7 @@ export const App: React.FC = () => {
   const [currentView, setCurrentView] = useState(0);
   const [modalTab, setModalTab] = useState<ModalTabType>('schedule');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentRoute, setCurrentRoute] = useState<'home' | 'register' | 'login' | 'dashboard' | 'admin'>('home');
+  const [currentRoute, setCurrentRoute] = useState<'home' | 'register' | 'login' | 'dashboard' | 'admin' | 'contact'>('home');
 
   const lenisRef = useRef<Lenis | null>(null);
   const mouseRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
@@ -34,6 +35,10 @@ export const App: React.FC = () => {
         window.location.pathname === '/login' ||
         window.location.hash === '#login' ||
         window.location.hash === '#/login';
+      const isContactPath =
+        window.location.pathname === '/contact' ||
+        window.location.hash === '#contact' ||
+        window.location.hash === '#/contact';
       const isDashboardPath =
         window.location.pathname === '/dashboard' ||
         window.location.hash === '#dashboard' ||
@@ -46,6 +51,9 @@ export const App: React.FC = () => {
       if (isAdminPath) {
         window.scrollTo({ top: 0, behavior: 'instant' });
         setCurrentRoute('admin');
+      } else if (isContactPath) {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        setCurrentRoute('contact');
       } else if (isRegisterPath) {
         setCurrentRoute('register');
       } else if (isLoginPath) {
@@ -91,6 +99,12 @@ export const App: React.FC = () => {
   const navigateToLogin = useCallback(() => {
     window.history.pushState(null, '', '/login');
     setCurrentRoute('login');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  const navigateToContact = useCallback(() => {
+    window.history.pushState(null, '', '/contact');
+    setCurrentRoute('contact');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
@@ -195,13 +209,60 @@ export const App: React.FC = () => {
       navigateToLogin();
       return;
     }
+    if (tab === 'contact') {
+      navigateToContact();
+      return;
+    }
     setModalTab(tab);
     setIsModalOpen(true);
-  }, [navigateToRegister, navigateToLogin]);
+  }, [navigateToRegister, navigateToLogin, navigateToContact]);
 
   // Full-Page Dedicated Registration Route
   if (currentRoute === 'register') {
     return <RegistrationPage onBackToHome={navigateToHome} />;
+  }
+
+  // Full-Page Dedicated Contact Us Route with Live 3D City Model Background
+  if (currentRoute === 'contact') {
+    return (
+      <div className="relative w-full bg-[#0B0F14] text-white overflow-x-hidden min-h-screen">
+        {/* Reference Preloader */}
+        {loading && (
+          <Preloader
+            progress={loadProgress}
+            onComplete={() => setLoading(false)}
+          />
+        )}
+
+        {/* Top Navigation HUD with active contact route */}
+        <Navigation
+          currentView={3}
+          onSelectView={handleSelectView}
+          onOpenModal={handleOpenModal}
+          activeRoute="contact"
+          onNavigateHome={navigateToHome}
+          onNavigateToContact={navigateToContact}
+          onNavigateToLogin={navigateToLogin}
+        />
+
+        {/* 3D WebGL City Scene pinned to Sector 4 Municipal Building */}
+        <CityCanvas
+          scrollProgress={1.0}
+          currentView={3}
+          mouseRef={mouseRef}
+        />
+
+        {/* Dedicated Full Contact Us Page */}
+        <ContactPage onBackToHome={navigateToHome} />
+
+        {/* Hackathon Details Modal if opened from Navigation */}
+        <HackathonModal
+          isOpen={isModalOpen}
+          initialTab={modalTab}
+          onClose={() => setIsModalOpen(false)}
+        />
+      </div>
+    );
   }
 
   // Full-Page Dedicated Participant Login Route with Live 3D City Model Background
@@ -221,6 +282,10 @@ export const App: React.FC = () => {
           currentView={3}
           onSelectView={handleSelectView}
           onOpenModal={handleOpenModal}
+          activeRoute="login"
+          onNavigateHome={navigateToHome}
+          onNavigateToContact={navigateToContact}
+          onNavigateToLogin={navigateToLogin}
         />
 
         {/* 3D WebGL City Scene pinned to Sector 4 Municipal Building */}
@@ -230,11 +295,12 @@ export const App: React.FC = () => {
           mouseRef={mouseRef}
         />
 
-        {/* Participant Login Interface */}
+        {/* Unified Login Interface (Participants & Admins) */}
         <LoginPage
           onBackToHome={navigateToHome}
           onNavigateToRegister={navigateToRegister}
           onNavigateToDashboard={navigateToDashboard}
+          onNavigateToAdmin={navigateToAdmin}
         />
 
         {/* Hackathon Details Modal if opened from Navigation */}
@@ -318,6 +384,10 @@ export const App: React.FC = () => {
         currentView={currentView}
         onSelectView={handleSelectView}
         onOpenModal={handleOpenModal}
+        activeRoute="home"
+        onNavigateHome={navigateToHome}
+        onNavigateToContact={navigateToContact}
+        onNavigateToLogin={navigateToLogin}
       />
 
       {/* 3D WebGL City Scene */}

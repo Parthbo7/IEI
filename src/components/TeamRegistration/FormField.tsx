@@ -37,16 +37,16 @@ export const FormField: React.FC<FormFieldProps> = ({
       {/* Label positioned clearly above the input */}
       <label
         htmlFor={name}
-        className="flex items-center gap-1.5 text-xs sm:text-[13px] font-sans font-medium text-zinc-200 mb-2 select-none"
+        className="flex items-center gap-1 text-[11px] sm:text-xs font-sans font-medium text-zinc-200 mb-1 select-none"
       >
         <span>{label}</span>
         {required && <span className="text-[#C6FF35] font-bold text-xs">*</span>}
       </label>
 
-      {/* Input container with exact 56px height and 12px border radius */}
+      {/* Input container with optimized 40px/42px height for 100vh fit */}
       <div className="relative flex items-center w-full min-w-0">
         {icon && (
-          <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none flex items-center justify-center shrink-0">
+          <div className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none flex items-center justify-center shrink-0">
             {icon}
           </div>
         )}
@@ -61,10 +61,10 @@ export const FormField: React.FC<FormFieldProps> = ({
           disabled={disabled}
           maxLength={maxLength}
           style={{
-            paddingLeft: icon ? '44px' : '16px',
-            paddingRight: isPassword ? '44px' : '16px',
+            paddingLeft: icon ? '38px' : '14px',
+            paddingRight: isPassword ? '38px' : '14px',
           }}
-          className={`w-full h-[56px] rounded-[12px] text-sm font-sans text-white placeholder:text-zinc-500 bg-[#070B10] border transition-all duration-200 outline-none ${
+          className={`w-full h-[40px] sm:h-[42px] rounded-[10px] text-xs sm:text-[13px] font-sans text-white placeholder:text-zinc-500 bg-[#070B10] border transition-all duration-200 outline-none ${
             error
               ? 'border-red-500/80 focus:border-red-500 focus:ring-1 focus:ring-red-500/30'
               : 'border-[#1E293B] hover:border-slate-700 focus:border-[#C6FF35] focus:ring-1 focus:ring-[#C6FF35]/30'
@@ -75,7 +75,7 @@ export const FormField: React.FC<FormFieldProps> = ({
           <button
             type="button"
             onClick={() => setShowPassword((prev) => !prev)}
-            className="absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-[#C6FF35] transition-colors p-1.5 rounded-lg focus:outline-none cursor-pointer"
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-[#C6FF35] transition-colors p-1 rounded-lg focus:outline-none cursor-pointer"
             title={showPassword ? 'Hide password' : 'Show password'}
           >
             {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -84,7 +84,7 @@ export const FormField: React.FC<FormFieldProps> = ({
       </div>
 
       {error && (
-        <span className="text-[11px] font-mono text-red-400 mt-1.5 tracking-tight flex items-center gap-1">
+        <span className="text-[10px] font-mono text-red-400 mt-0.5 tracking-tight flex items-center gap-1">
           <span>⚠</span> {error}
         </span>
       )}

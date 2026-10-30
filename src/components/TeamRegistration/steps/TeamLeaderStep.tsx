@@ -58,11 +58,11 @@ export const TeamLeaderStep: React.FC<TeamLeaderStepProps> = ({
   return (
     <form onSubmit={handleContinue} className="w-full flex flex-col items-center">
       {/* Section Header */}
-      <div className="text-center mb-6 sm:mb-8 max-w-2xl shrink-0">
-        <h2 className="text-2xl sm:text-3xl font-extrabold font-sans text-white tracking-tight mb-2">
+      <div className="text-center mb-2 sm:mb-2.5 max-w-2xl shrink-0">
+        <h2 className="text-lg sm:text-xl lg:text-2xl font-extrabold font-sans text-white tracking-tight mb-0.5">
           Team Leader Details
         </h2>
-        <p className="text-xs sm:text-sm text-zinc-400 font-sans leading-relaxed">
+        <p className="text-[11px] sm:text-xs text-zinc-400 font-sans leading-normal">
           Enter the details of the person representing your team.
         </p>
       </div>
@@ -156,22 +156,22 @@ export const TeamLeaderStep: React.FC<TeamLeaderStepProps> = ({
 
           {/* ROW 4: Year of Study (Left) & Team Account Password (Right) */}
           <div className="min-w-0 flex flex-col text-left w-full">
-            <label className="flex items-center gap-1.5 text-xs sm:text-[13px] font-sans font-medium text-zinc-200 mb-2 select-none">
+            <label className="flex items-center gap-1 text-[11px] sm:text-xs font-sans font-medium text-zinc-200 mb-1 select-none">
               <span>Year of Study</span>
               <span className="text-[#C6FF35] font-bold text-xs">*</span>
             </label>
             <div className="relative flex items-center w-full min-w-0">
-              <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none flex items-center justify-center shrink-0">
-                <GraduationCap className="w-5 h-5" />
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none flex items-center justify-center shrink-0">
+                <GraduationCap className="w-4 h-4" />
               </div>
               <select
                 value={data.yearOfStudy}
                 onChange={(e) => handleFieldChange('yearOfStudy', e.target.value)}
                 style={{
-                  paddingLeft: '44px',
-                  paddingRight: '36px',
+                  paddingLeft: '38px',
+                  paddingRight: '32px',
                 }}
-                className={`w-full h-[56px] rounded-[12px] text-sm font-sans bg-[#070B10] border transition-all duration-200 outline-none appearance-none cursor-pointer ${
+                className={`w-full h-[40px] sm:h-[42px] rounded-[10px] text-xs sm:text-[13px] font-sans bg-[#070B10] border transition-all duration-200 outline-none appearance-none cursor-pointer ${
                   !data.yearOfStudy ? 'text-zinc-500' : 'text-white'
                 } ${
                   errors.yearOfStudy
@@ -188,12 +188,12 @@ export const TeamLeaderStep: React.FC<TeamLeaderStepProps> = ({
                 <option value="4th Year" className="bg-[#0A0F15] text-white">4th Year (BE / Final Year)</option>
                 <option value="Postgraduate" className="bg-[#0A0F15] text-white">Postgraduate (ME / M.Tech / MCA)</option>
               </select>
-              <div className="absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none flex items-center justify-center">
-                <ChevronDown className="w-4 h-4" />
+              <div className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none flex items-center justify-center">
+                <ChevronDown className="w-3.5 h-3.5" />
               </div>
             </div>
             {errors.yearOfStudy && (
-              <span className="text-[11px] font-mono text-red-400 mt-1.5 tracking-tight flex items-center gap-1">
+              <span className="text-[10px] font-mono text-red-400 mt-0.5 tracking-tight flex items-center gap-1">
                 <span>⚠</span> {errors.yearOfStudy}
               </span>
             )}
@@ -209,7 +209,7 @@ export const TeamLeaderStep: React.FC<TeamLeaderStepProps> = ({
               placeholder="Create a team password"
               required
               error={errors.teamPassword}
-              icon={<Lock className="w-5 h-5 text-zinc-400" />}
+              icon={<Lock className="w-4 h-4 text-zinc-400" />}
             />
           </div>
 
@@ -224,20 +224,20 @@ export const TeamLeaderStep: React.FC<TeamLeaderStepProps> = ({
               placeholder="Confirm your password"
               required
               error={errors.confirmPassword}
-              icon={<Shield className="w-5 h-5 text-zinc-400" />}
+              icon={<Shield className="w-4 h-4 text-zinc-400" />}
             />
           </div>
 
           <div className="min-w-0 flex flex-col text-left w-full">
-            <label className="flex items-center gap-1.5 text-xs sm:text-[13px] font-sans font-medium text-zinc-400 mb-2 select-none">
+            <label className="flex items-center gap-1 text-[11px] sm:text-xs font-sans font-medium text-zinc-400 mb-1 select-none">
               <span>Account Security</span>
             </label>
-            <div className="h-[56px] rounded-[12px] bg-[#070B10] border border-[#1E293B] px-4 flex items-center gap-3 text-zinc-400 text-xs font-sans">
-              <div className="w-5 h-5 rounded-full bg-[#C6FF35]/15 border border-[#C6FF35]/30 flex items-center justify-center shrink-0">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#C6FF35]" />
+            <div className="h-[40px] sm:h-[42px] rounded-[10px] bg-[#070B10] border border-[#1E293B] px-3 flex items-center gap-2.5 text-zinc-400 text-[11px] sm:text-xs font-sans">
+              <div className="w-4 h-4 rounded-full bg-[#C6FF35]/15 border border-[#C6FF35]/30 flex items-center justify-center shrink-0">
+                <ShieldCheck className="w-3 h-3 text-[#C6FF35]" />
               </div>
-              <span className="leading-snug">
-                Keep your team password safe for portal check-in, dashboard access, and submissions.
+              <span className="leading-tight truncate">
+                Keep password safe for check-in & dashboard.
               </span>
             </div>
           </div>
@@ -249,18 +249,18 @@ export const TeamLeaderStep: React.FC<TeamLeaderStepProps> = ({
         <button
           type="button"
           onClick={onBack}
-          className="h-[50px] sm:h-[52px] px-6 sm:px-7 rounded-[12px] border border-slate-700/80 hover:border-slate-500 bg-black/40 hover:bg-white/[0.04] text-white font-mono text-xs sm:text-sm font-bold tracking-wider inline-flex items-center gap-2.5 transition-all cursor-pointer"
+          className="h-[40px] sm:h-[42px] px-6 sm:px-7 rounded-[10px] border border-slate-700/80 hover:border-slate-500 bg-black/40 hover:bg-white/[0.04] text-white font-mono text-xs sm:text-[13px] font-bold tracking-wider inline-flex items-center gap-2 transition-all cursor-pointer"
         >
-          <ArrowLeft className="w-4 h-4 text-[#C6FF35]" />
+          <ArrowLeft className="w-3.5 h-3.5 text-[#C6FF35]" />
           <span>BACK</span>
         </button>
 
         <button
           type="submit"
-          className="h-[50px] sm:h-[52px] px-8 sm:px-9 rounded-[12px] bg-[#C6FF35] hover:bg-[#bcf026] text-black font-mono text-xs sm:text-sm font-bold tracking-wider inline-flex items-center gap-2.5 transition-all shadow-[0_0_24px_rgba(198,255,53,0.45)] cursor-pointer"
+          className="h-[40px] sm:h-[42px] px-7 sm:px-8 rounded-[10px] bg-[#C6FF35] hover:bg-[#bcf026] text-black font-mono text-xs sm:text-[13px] font-bold tracking-wider inline-flex items-center gap-2 transition-all shadow-[0_0_20px_rgba(198,255,53,0.4)] cursor-pointer"
         >
           <span>CONTINUE</span>
-          <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+          <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
         </button>
       </div>
     </form>

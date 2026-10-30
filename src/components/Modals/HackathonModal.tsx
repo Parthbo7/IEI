@@ -4,20 +4,13 @@ import {
   Trophy,
   Calendar,
   Compass,
-  Users,
   CheckCircle,
-  ExternalLink,
   HelpCircle,
   Mail,
   Lock,
-  Building,
   Handshake,
   ChevronDown,
-  Award,
   MapPin,
-  Clock,
-  Sparkles,
-  Info,
   AlertCircle
 } from 'lucide-react';
 import { HACKATHON_CONFIG } from '../../config/hackathonConfig';
@@ -136,103 +129,12 @@ export const HackathonModal: React.FC<HackathonModalProps> = ({
           </button>
         </div>
 
-        {/* Modal Navigation Tabs Bar */}
-        <div className="flex items-center gap-2 sm:gap-4 px-6 sm:px-8 border-b border-white/[0.08] bg-[#070A0F] overflow-x-auto text-xs font-mono scrollbar-none">
-          <button
-            onClick={() => setActiveTab('schedule')}
-            className={`py-3.5 px-2 border-b-2 font-medium tracking-wider transition-colors whitespace-nowrap cursor-pointer uppercase ${
-              activeTab === 'schedule'
-                ? 'text-[#C6FF35] border-[#C6FF35] font-bold'
-                : 'text-zinc-400 border-transparent hover:text-white'
-            }`}
-          >
-            Schedule
-          </button>
-
-          <button
-            onClick={() => setActiveTab('tracks')}
-            className={`py-3.5 px-2 border-b-2 font-medium tracking-wider transition-colors whitespace-nowrap cursor-pointer uppercase ${
-              activeTab === 'tracks'
-                ? 'text-[#C6FF35] border-[#C6FF35] font-bold'
-                : 'text-zinc-400 border-transparent hover:text-white'
-            }`}
-          >
-            Problem Statements
-          </button>
-
-          <button
-            onClick={() => setActiveTab('sponsors')}
-            className={`py-3.5 px-2 border-b-2 font-medium tracking-wider transition-colors whitespace-nowrap cursor-pointer uppercase ${
-              activeTab === 'sponsors'
-                ? 'text-[#C6FF35] border-[#C6FF35] font-bold'
-                : 'text-zinc-400 border-transparent hover:text-white'
-            }`}
-          >
-            Sponsors
-          </button>
-
-          <button
-            onClick={() => setActiveTab('faq')}
-            className={`py-3.5 px-2 border-b-2 font-medium tracking-wider transition-colors whitespace-nowrap cursor-pointer uppercase ${
-              activeTab === 'faq'
-                ? 'text-[#C6FF35] border-[#C6FF35] font-bold'
-                : 'text-zinc-400 border-transparent hover:text-white'
-            }`}
-          >
-            FAQ
-          </button>
-
-          <button
-            onClick={() => setActiveTab('contact')}
-            className={`py-3.5 px-2 border-b-2 font-medium tracking-wider transition-colors whitespace-nowrap cursor-pointer uppercase ${
-              activeTab === 'contact'
-                ? 'text-[#C6FF35] border-[#C6FF35] font-bold'
-                : 'text-zinc-400 border-transparent hover:text-white'
-            }`}
-          >
-            Contact
-          </button>
-
-          <button
-            onClick={() => setActiveTab('login')}
-            className={`py-3.5 px-2 border-b-2 font-medium tracking-wider transition-colors whitespace-nowrap cursor-pointer uppercase ${
-              activeTab === 'login'
-                ? 'text-[#C6FF35] border-[#C6FF35] font-bold'
-                : 'text-zinc-400 border-transparent hover:text-white'
-            }`}
-          >
-            Portal Login
-          </button>
-
-          <button
-            onClick={() => setActiveTab('overview')}
-            className={`py-3.5 px-2 border-b-2 font-medium tracking-wider transition-colors whitespace-nowrap cursor-pointer uppercase ${
-              activeTab === 'overview'
-                ? 'text-[#C6FF35] border-[#C6FF35] font-bold'
-                : 'text-zinc-400 border-transparent hover:text-white'
-            }`}
-          >
-            Overview
-          </button>
-
-          <button
-            onClick={() => setActiveTab('prizes')}
-            className={`py-3.5 px-2 border-b-2 font-medium tracking-wider transition-colors whitespace-nowrap cursor-pointer uppercase ${
-              activeTab === 'prizes'
-                ? 'text-[#C6FF35] border-[#C6FF35] font-bold'
-                : 'text-zinc-400 border-transparent hover:text-white'
-            }`}
-          >
-            Prizes
-          </button>
-        </div>
-
         {/* Modal Content Body */}
         <div
-          className={`flex-1 overflow-y-auto p-6 sm:p-8 space-y-8 text-sm ${
-            ['schedule', 'tracks', 'sponsors'].includes(activeTab)
-              ? 'flex flex-col items-center justify-center min-h-[460px]'
-              : ''
+          className={`flex-1 overflow-y-auto p-6 sm:p-8 text-sm ${
+            ['schedule', 'tracks', 'sponsors', 'prizes'].includes(activeTab)
+              ? 'flex flex-col items-center justify-center min-h-[480px] sm:min-h-[520px]'
+              : 'space-y-8'
           }`}
         >
           {/* =========================================================
@@ -316,67 +218,6 @@ export const HackathonModal: React.FC<HackathonModalProps> = ({
                     </div>
                   );
                 })}
-              </div>
-            </div>
-          )}
-
-          {/* =========================================================
-              TAB: CONTACT
-              ========================================================= */}
-          {activeTab === 'contact' && (
-            <div className="space-y-6 animate-in fade-in duration-200">
-              <div className="bg-[#0E1520] border border-white/[0.1] rounded-2xl p-6 sm:p-7">
-                <div className="flex items-center gap-2 text-[#C6FF35] font-mono text-xs uppercase tracking-widest font-bold mb-2">
-                  <Mail className="w-4 h-4" />
-                  <span>Official Organizing Secretariat</span>
-                </div>
-                <h3 className="font-tech text-white text-2xl font-bold tracking-tight">
-                  Get in Touch
-                </h3>
-                <p className="text-xs sm:text-sm font-mono text-zinc-400 mt-1">
-                  For participation queries, travel assistance, or institutional partnerships.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div className="p-5 rounded-2xl bg-[#070A0F] border border-white/[0.08] space-y-2">
-                  <div className="flex items-center gap-2 text-[#C6FF35] text-xs font-mono font-bold">
-                    <Mail className="w-4 h-4" />
-                    <span>EMAIL COMMUNICATIONS</span>
-                  </div>
-                  <a
-                    href="mailto:iei.it@mgmcen.ac.in"
-                    className="font-tech text-lg text-white hover:text-[#C6FF35] transition-colors block font-bold"
-                  >
-                    iei.it@mgmcen.ac.in
-                  </a>
-                  <p className="text-xs font-mono text-zinc-400">
-                    Official inquiries, verification support, and sponsorship proposals.
-                  </p>
-                </div>
-
-                <div className="p-5 rounded-2xl bg-[#070A0F] border border-white/[0.08] space-y-2">
-                  <div className="flex items-center gap-2 text-[#C6FF35] text-xs font-mono font-bold">
-                    <MapPin className="w-4 h-4" />
-                    <span>EVENT VENUE</span>
-                  </div>
-                  <h5 className="font-tech text-lg text-white font-bold">
-                    MGM's College of Engineering
-                  </h5>
-                  <p className="text-xs font-mono text-zinc-400">
-                    VIP Road, Nanded, Maharashtra - 431605, India
-                  </p>
-                </div>
-              </div>
-
-              <div className="p-5 rounded-2xl bg-[#070A0F] border border-white/[0.08] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono">
-                <div>
-                  <span className="text-white font-bold block">Helpline Numbers & Coordinators:</span>
-                  <span className="text-zinc-400 text-xs">Direct mobile helplines and student coordinators will be designated closer to the event.</span>
-                </div>
-                <span className="text-[#C6FF35] font-semibold px-3 py-1 rounded bg-[#C6FF35]/10 border border-[#C6FF35]/25 self-start sm:self-auto shrink-0">
-                  Announcement Pending
-                </span>
               </div>
             </div>
           )}

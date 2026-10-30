@@ -119,7 +119,13 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({ onBackToHome
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#070A0F] text-white flex flex-col items-center relative overflow-x-hidden selection:bg-[#C6FF35] selection:text-black">
+    <div
+      className={`min-h-screen w-full bg-[#070A0F] text-white flex flex-col items-center relative overflow-x-hidden selection:bg-[#C6FF35] selection:text-black box-border ${
+        currentStep === 5
+          ? 'overflow-y-auto pb-12'
+          : 'lg:h-[100dvh] lg:max-h-[100dvh] lg:overflow-y-auto'
+      }`}
+    >
       {/* Subtle Background Radial Glow & Ambient Tech Pattern */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[500px] bg-gradient-to-b from-[#C6FF35]/[0.06] via-transparent to-transparent blur-3xl pointer-events-none -z-0" />
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(198,255,53,0.025)_1px,transparent_1px),linear-gradient(to_bottom,rgba(198,255,53,0.025)_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none -z-0" />
@@ -135,18 +141,22 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({ onBackToHome
       {/* Top Dedicated Full-Page Header */}
       <RegistrationHeader onBackToHome={onBackToHome} />
 
-      {/* Main Content Area: Standardized horizontally centered container */}
-      <main className="registration-container pt-6 sm:pt-8 pb-14 z-10 flex flex-col items-center">
+      {/* Main Content Area: Standardized horizontally centered container fitting 100vh */}
+      <main
+        className={`registration-container pt-1.5 sm:pt-2 z-10 flex-1 flex flex-col items-center w-full box-border ${
+          currentStep === 5 ? 'pb-8 justify-start' : 'pb-2.5 sm:pb-3.5 justify-between'
+        }`}
+      >
         {/* Step 1-5 Introduction Heading Section */}
-        <div className="text-center mb-1 max-w-2xl shrink-0">
-          <span className="font-mono text-xs sm:text-sm tracking-[0.25em] text-[#C6FF35] uppercase font-bold block mb-2 drop-shadow-[0_0_12px_rgba(198,255,53,0.35)]">
-            SMART CITY INNOVATION 2026
+        <div className="text-center mb-0.5 max-w-2xl shrink-0">
+          <span className="font-mono text-[10px] sm:text-xs tracking-[0.25em] text-[#C6FF35] uppercase font-bold block mb-0.5 drop-shadow-[0_0_10px_rgba(198,255,53,0.3)]">
+            SMART CITY INNOVATION 2026 
           </span>
-          <h1 className="font-tech text-4xl sm:text-5xl lg:text-[54px] font-black tracking-tight uppercase leading-none mb-2.5">
+          <h1 className="font-tech text-2xl sm:text-3xl lg:text-[32px] font-black tracking-tight uppercase leading-none mb-0.5">
             <span className="text-white">TEAM </span>
-            <span className="text-[#C6FF35] drop-shadow-[0_0_24px_rgba(198,255,53,0.5)]">REGISTRATION</span>
+            <span className="text-[#C6FF35] drop-shadow-[0_0_20px_rgba(198,255,53,0.45)]">REGISTRATION</span>
           </h1>
-          <p className="font-sans text-xs sm:text-sm text-zinc-400 max-w-xl mx-auto leading-relaxed">
+          <p className="font-sans text-[11px] sm:text-xs text-zinc-400 max-w-xl mx-auto leading-normal hidden sm:block">
             Build your team. Bring your ideas to life. Create solutions for tomorrow's cities.
           </p>
         </div>

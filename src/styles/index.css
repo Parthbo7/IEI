@@ -308,13 +308,14 @@ html.lenis, html.lenis body {
 }
 
 /* =========================================================================
-   Registration Portal Layout & Form Panel Standards (Matching Reference UI)
+   Registration Portal Layout & Form Panel Standards (Single-Screen 100vh Fit)
    ========================================================================= */
 .registration-container {
-  width: min(1370px, calc(100% - 40px)) !important;
+  width: min(1370px, calc(100% - 32px)) !important;
   margin-inline: auto !important;
   margin-left: auto !important;
   margin-right: auto !important;
+  box-sizing: border-box;
 }
 
 .leader-form-panel,
@@ -322,11 +323,11 @@ html.lenis, html.lenis body {
 .payment-form-panel {
   width: 100%;
   box-sizing: border-box;
-  padding: 32px;
+  padding: 16px 22px;
   border: 1px solid #26384b;
-  border-radius: 20px;
+  border-radius: 16px;
   background: rgba(10, 16, 23, 0.94);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
@@ -335,16 +336,16 @@ html.lenis, html.lenis body {
 .member-form-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: 44px;
-  row-gap: 22px;
+  column-gap: 32px;
+  row-gap: 10px;
   align-items: start;
 }
 
 .payment-layout {
   display: grid;
   grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-  column-gap: 36px;
-  row-gap: 24px;
+  column-gap: 32px;
+  row-gap: 16px;
   align-items: stretch;
   width: 100%;
 }
@@ -353,16 +354,16 @@ html.lenis, html.lenis body {
   .leader-form-panel,
   .member-form-panel,
   .payment-form-panel {
-    padding: 20px;
+    padding: 16px;
   }
   .leader-form-grid,
   .member-form-grid {
     grid-template-columns: 1fr;
-    row-gap: 18px;
+    row-gap: 12px;
   }
   .payment-layout {
     grid-template-columns: 1fr;
-    row-gap: 28px;
+    row-gap: 20px;
   }
 }
 
@@ -370,8 +371,8 @@ html.lenis, html.lenis body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   width: 100%;
-  margin-top: 16px;
+  margin-top: 10px;
 }
 

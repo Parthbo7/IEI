@@ -91,17 +91,17 @@ export const TeamMembersStep: React.FC<TeamMembersStepProps> = ({
   return (
     <form onSubmit={handleContinue} className="w-full flex flex-col items-center">
       {/* Section Header */}
-      <div className="text-center mb-6 sm:mb-8 max-w-2xl shrink-0">
-        <h2 className="text-2xl sm:text-3xl font-extrabold font-sans text-white tracking-tight mb-1.5">
+      <div className="text-center mb-2 sm:mb-2.5 max-w-2xl shrink-0">
+        <h2 className="text-lg sm:text-xl lg:text-2xl font-extrabold font-sans text-white tracking-tight mb-0.5">
           Team Member Details
         </h2>
-        <p className="text-xs sm:text-sm text-zinc-400 font-sans leading-relaxed">
+        <p className="text-[11px] sm:text-xs text-zinc-400 font-sans leading-normal">
           Enter details for the {additionalMembersCount} additional member{additionalMembersCount > 1 ? 's' : ''} on your team.
         </p>
       </div>
 
       {/* Member Panels List */}
-      <div className="w-full space-y-6 sm:space-y-8 mb-6 sm:mb-8">
+      <div className="w-full space-y-3 sm:space-y-4 mb-2">
         {Array.from({ length: additionalMembersCount }).map((_, idx) => {
           const memberData = formData.members[idx] || {
             fullName: '',
@@ -120,16 +120,16 @@ export const TeamMembersStep: React.FC<TeamMembersStepProps> = ({
               className="member-form-panel"
             >
               {/* Member Card Title */}
-              <div className="flex items-center justify-between pb-3.5 mb-6 border-b border-white/[0.08]">
-                <div className="flex items-center gap-2.5">
-                  <span className="w-6 h-6 rounded-full bg-[#C6FF35] text-black font-mono text-xs font-bold flex items-center justify-center">
+              <div className="flex items-center justify-between pb-2 mb-3 border-b border-white/[0.08]">
+                <div className="flex items-center gap-2">
+                  <span className="w-5 h-5 rounded-full bg-[#C6FF35] text-black font-mono text-[10px] font-bold flex items-center justify-center">
                     {idx + 1}
                   </span>
-                  <h3 className="font-tech text-base sm:text-lg font-bold text-white tracking-tight">
+                  <h3 className="font-tech text-sm sm:text-base font-bold text-white tracking-tight">
                     MEMBER {idx + 1}
                   </h3>
                 </div>
-                <span className="text-xs font-mono font-medium text-zinc-400 uppercase tracking-wider">
+                <span className="text-[10px] font-mono font-medium text-zinc-400 uppercase tracking-wider">
                   TEAM ROSTER #{idx + 2}
                 </span>
               </div>
@@ -210,22 +210,22 @@ export const TeamMembersStep: React.FC<TeamMembersStepProps> = ({
 
                 {/* ROW 3: Year of Study Dropdown (Right Column) */}
                 <div className="min-w-0 flex flex-col text-left w-full">
-                  <label className="flex items-center gap-1.5 text-xs sm:text-[13px] font-sans font-medium text-zinc-200 mb-2 select-none">
+                  <label className="flex items-center gap-1 text-[11px] sm:text-xs font-sans font-medium text-zinc-200 mb-1 select-none">
                     <span>Year of Study</span>
                     <span className="text-[#C6FF35] font-bold text-xs">*</span>
                   </label>
                   <div className="relative flex items-center w-full min-w-0">
-                    <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none flex items-center justify-center shrink-0">
-                      <GraduationCap className="w-5 h-5" />
+                    <div className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none flex items-center justify-center shrink-0">
+                      <GraduationCap className="w-4 h-4" />
                     </div>
                     <select
                       value={memberData.yearOfStudy}
                       onChange={(e) => handleFieldChange(idx, 'yearOfStudy', e.target.value)}
                       style={{
-                        paddingLeft: '44px',
-                        paddingRight: '36px',
+                        paddingLeft: '38px',
+                        paddingRight: '32px',
                       }}
-                      className={`w-full h-[56px] rounded-[12px] text-sm font-sans bg-[#070B10] border transition-all duration-200 outline-none appearance-none cursor-pointer ${
+                      className={`w-full h-[40px] sm:h-[42px] rounded-[10px] text-xs sm:text-[13px] font-sans bg-[#070B10] border transition-all duration-200 outline-none appearance-none cursor-pointer ${
                         !memberData.yearOfStudy ? 'text-zinc-500' : 'text-white'
                       } ${
                         memberErrors.yearOfStudy
@@ -242,12 +242,12 @@ export const TeamMembersStep: React.FC<TeamMembersStepProps> = ({
                       <option value="4th Year" className="bg-[#0A0F15] text-white">4th Year (BE / Final Year)</option>
                       <option value="Postgraduate" className="bg-[#0A0F15] text-white">Postgraduate</option>
                     </select>
-                    <div className="absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none flex items-center justify-center">
-                      <ChevronDown className="w-4 h-4" />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none flex items-center justify-center">
+                      <ChevronDown className="w-3.5 h-3.5" />
                     </div>
                   </div>
                   {memberErrors.yearOfStudy && (
-                    <span className="text-[11px] font-mono text-red-400 mt-1.5 tracking-tight flex items-center gap-1">
+                    <span className="text-[10px] font-mono text-red-400 mt-0.5 tracking-tight flex items-center gap-1">
                       <span>⚠</span> {memberErrors.yearOfStudy}
                     </span>
                   )}
@@ -261,7 +261,7 @@ export const TeamMembersStep: React.FC<TeamMembersStepProps> = ({
                     value={memberData.rollNumber || ''}
                     onChange={(val) => handleFieldChange(idx, 'rollNumber', val)}
                     placeholder="e.g. IT-2024-42 / PRN Number"
-                    icon={<Hash className="w-5 h-5 text-zinc-400" />}
+                    icon={<Hash className="w-4 h-4 text-zinc-400" />}
                   />
                 </div>
               </div>
@@ -275,18 +275,18 @@ export const TeamMembersStep: React.FC<TeamMembersStepProps> = ({
         <button
           type="button"
           onClick={onBack}
-          className="h-[50px] sm:h-[52px] px-6 sm:px-7 rounded-[12px] border border-slate-700/80 hover:border-slate-500 bg-black/40 hover:bg-white/[0.04] text-white font-mono text-xs sm:text-sm font-bold tracking-wider inline-flex items-center gap-2.5 transition-all cursor-pointer"
+          className="h-[40px] sm:h-[42px] px-6 sm:px-7 rounded-[10px] border border-slate-700/80 hover:border-slate-500 bg-black/40 hover:bg-white/[0.04] text-white font-mono text-xs sm:text-[13px] font-bold tracking-wider inline-flex items-center gap-2 transition-all cursor-pointer"
         >
-          <ArrowLeft className="w-4 h-4 text-[#C6FF35]" />
+          <ArrowLeft className="w-3.5 h-3.5 text-[#C6FF35]" />
           <span>BACK</span>
         </button>
 
         <button
           type="submit"
-          className="h-[50px] sm:h-[52px] px-8 sm:px-9 rounded-[12px] bg-[#C6FF35] hover:bg-[#bcf026] text-black font-mono text-xs sm:text-sm font-bold tracking-wider inline-flex items-center gap-2.5 transition-all shadow-[0_0_24px_rgba(198,255,53,0.45)] cursor-pointer"
+          className="h-[40px] sm:h-[42px] px-7 sm:px-8 rounded-[10px] bg-[#C6FF35] hover:bg-[#bcf026] text-black font-mono text-xs sm:text-[13px] font-bold tracking-wider inline-flex items-center gap-2 transition-all shadow-[0_0_20px_rgba(198,255,53,0.4)] cursor-pointer"
         >
           <span>CONTINUE</span>
-          <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+          <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
         </button>
       </div>
     </form>
